@@ -17,6 +17,7 @@ export default {
     padding: get-vw(20px) get-vw(30px);
     color: $gray;
     border-bottom: 1px solid #eee;
+    background: #fff;
   }
   button.btn-sidebar {
     background-color: $green;

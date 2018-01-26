@@ -29,4 +29,7 @@ export default {
   .row-gap {
     margin-top: 20px;
   }
+  .home {
+    padding: 0 get-vw(9px);
+  }
 </style>

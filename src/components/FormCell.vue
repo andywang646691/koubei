@@ -8,6 +8,7 @@
         input(
           :value="value"
           v-on:input="updateValue($event.target.value)"
+          placeholder="请输入"
         )
 </template>
 
@@ -30,6 +31,7 @@ export default {
     text-align: right;
     height: 36px;
     color: #888;
+    margin-right: 24px;
   }
   input:focus {
     color: black;
