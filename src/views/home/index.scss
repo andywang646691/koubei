@@ -1,0 +1,24 @@
+a {
+  display: block;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.grid > * {
+  width: 50%;
+  align-items: center;
+}
+.grid a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: get-vw(20px) 0;
+  img {
+    width: get-vw(100px);
+    height: get-vw(100px);
+  }
+}
+.desc-name {
+  margin-top: get-vw(15px);
+}

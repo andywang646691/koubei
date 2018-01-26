@@ -1,0 +1,5 @@
+
+@function get-vw($width) {
+  $baseWidth: 750px;
+  @return $width / $baseWidth * 100vw;
+}

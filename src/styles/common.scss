@@ -1,0 +1,40 @@
+@import "./cover.scss";
+* {
+  user-select: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul li {
+  list-style: none;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+input {
+  border: 0;
+}
+img {
+  transform: translate3d(0, 0, 0);
+}
+
+.title-em {
+  padding-left: get-vw(23px);
+  margin-left: get-vw(35px);
+  position: relative;
+}
+.title-em::before {
+  content: '';
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  width: get-vw(8px);
+  height: 80%;
+  background-color: $green;
+}
