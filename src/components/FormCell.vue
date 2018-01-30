@@ -4,19 +4,36 @@
       .mint-cell-title
         slot(name="title")
           .mint-cell-text(v-text="title")
-      .mint-cell-value
+      .mint-cell-value(v-if="!unit")
         input(
           :value="value"
           v-on:input="updateValue($event.target.value)"
-          placeholder="请输入"
+          v-bind:placeholder="placeholder"
+          v-bind:maxlength="maxlength"
         )
+      .mint-cell-value(v-if="unit" class="unit-cell")
+        input(
+        :value="value"
+        v-on:input="updateValue($event.target.value)"
+        v-bind:placeholder="placeholder"
+        v-bind:maxlength="maxlength"
+        )
+        span  {{ unit }}
 </template>
 
 <script>
 
 export default {
   name: 'form-cell',
-  props: ['title', 'value'],
+  props: {
+    title: {},
+    value: {},
+    unit: {},
+    maxlength: { default: 15 },
+    placeholder: {
+      default: '请输入'
+    }
+  },
   methods: {
     updateValue (value) {
       this.$emit('input', value)
@@ -31,9 +48,20 @@ export default {
     text-align: right;
     height: 36px;
     color: #888;
-    margin-right: 24px;
   }
   input:focus {
     color: black;
+  }
+  .mint-cell-value {
+    margin-right: 24px;
+  }
+  .unit-cell span {
+    margin-top: 3px;
+  }
+  .unit-cell input{
+    padding: 0 get-vw(13px);
+    ::-webkit-input-placeholder {
+      font-size: 16px;
+    }
   }
 </style>

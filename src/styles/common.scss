@@ -35,3 +35,38 @@ img {
   height: 80%;
   background-color: $green;
 }
+.cell-wrapper {
+  margin-top: get-vw(34px);
+}
+
+button.btn {
+  border-radius: 3px;
+  text-align: center;
+  padding: get-vw(20px) get-vw(50px);
+  font-size: 16px;
+}
+button.btn-reverse {
+  border: 1px solid $green;
+  background-color: white;
+  color: $green;
+}
+
+button.btn-green {
+  background-color: $green;
+  color: white;
+}
+
+button.btn-other, button.btn-submit {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+button.btn-other span {
+  letter-spacing: 10px;
+  margin-right: -10px;
+}
+button.btn-submit span {
+  letter-spacing: 60px;
+  margin-right: -60px;
+}
+

@@ -36,9 +36,6 @@ export default {
     'clientId': {
       default: 'dev-test'
     },
-    'uploaderName': {
-      default: 'dev-test'
-    },
     title: {
       default: '名称'
     }
@@ -50,6 +47,9 @@ export default {
       } else {
         return '请添加'
       }
+    },
+    uploaderName () {
+      return this.title
     }
   },
   created () {
@@ -78,9 +78,13 @@ export default {
         data: form,
         uploaderName: this.uploaderName
       }).then(data => {
-        let url = `${this.domainInDownload}/${data.key}`
-        this.qiniuUrl = url
-        Toast(`${this.uploaderName}上传成功`)
+        if (data.key) {
+          let url = `${this.domainInDownload}/${data.key}`
+          this.qiniuUrl = url
+          Toast(`${this.uploaderName}上传成功`)
+        }
+      }).catch(() => {
+        Toast(`${this.uploaderName}上传失败`)
       })
       uploadFile({
         fileElem,

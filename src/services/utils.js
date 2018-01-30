@@ -1,5 +1,6 @@
-import { Toast } from 'mint-ui'
 import axios from 'axios'
+import { Toast } from 'mint-ui'
+import validateFunc from './validateFunc'
 
 function returnFileSize (bytes) {
   if (typeof bytes === 'number') {
@@ -21,10 +22,30 @@ function uploadFile ({fileElem, url, data, uploaderName = '图片'}) {
     url,
     data
   }).then(res => {
+    console.log(res.data)
     return res.data
-  }).catch(() => {
-    Toast(`${uploaderName}上传失败`)
   })
 }
 
-export { returnFileSize, uploadFile, getFileFromDom }
+function validateForm (formData, validations) {
+  let hasError = Object.keys(formData).some((param) => {
+    return validations.some(validation => {
+      if (validation.key === param) {
+        let rules = validation.rule
+        return rules.some(rule => {
+          if (validateFunc(formData, param, rule.name, validation.associateKey)) {
+            Toast(rule.errMsg)
+            return true
+          } else {
+            return false
+          }
+        })
+      } else {
+        return false
+      }
+    })
+  })
+  return hasError
+}
+
+export { returnFileSize, uploadFile, getFileFromDom, validateForm }

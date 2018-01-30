@@ -1,0 +1,49 @@
+<template lang="pug">
+  .other
+    .cell-wrapper
+      mt-cell(
+        is-link
+        title="自动延长上架时间"
+      )
+      form-cell(
+        title="发放总量"
+        unit="张"
+      )
+      mt-cell(
+        is-link
+        title="使用方式"
+      )
+      mt-cell(
+        is-link
+        title="领取生效"
+      )
+    .cell-wrapper
+      mt-cell(
+        is-link
+        title="支付渠道限制"
+      )
+      mt-cell(
+       is-link
+        title="使用时段"
+      )
+      mt-cell(
+        is-link
+        title="领取限制"
+      )
+      form-cell(
+        title="最低消费"
+        placeholder="不填无限制"
+      )
+      form-cell(
+        title="最高优惠"
+        placeholder="不填无限制"
+      )
+      mt-cell(
+        is-link
+        title="可以转赠"
+      )
+</template>
+
+<script>
+  import FormCell from '@/components/FormCell.vue'
+</script>
