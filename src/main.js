@@ -4,7 +4,6 @@ import router from './router'
 import FastClick from 'fastclick'
 import { Cell, DatetimePicker, Field, Actionsheet } from 'mint-ui'
 import { formatCrowdType } from '@/services/filters.js'
-import { onlyNumAndDot } from '@/services/directives/onlyNum.js'
 
 Vue.component(Cell.name, Cell)
 Vue.component(DatetimePicker.name, DatetimePicker)
@@ -13,8 +12,6 @@ Vue.component(Actionsheet.name, Actionsheet)
 
 Vue.filter('formatCrowdType', formatCrowdType)
 
-Vue.directive('onlyNumAndDot', onlyNumAndDot)
-
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function () {
     FastClick.attach(document.body)
@@ -22,6 +19,7 @@ if ('addEventListener' in document) {
 }
 
 Vue.config.productionTip = false
+Vue.prototype.$log = console.log
 
 /* eslint-disable no-new */
 new Vue({

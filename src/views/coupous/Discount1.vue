@@ -42,17 +42,17 @@
     .cell-wrapper
       form-cell(
         title="折扣力度"
-        v-model="discount"
         unit="折"
         maxlength="3"
-        v-only-num-and-dot="discount"
+        v-model="discount"
       )
       mt-cell(
         is-link
         title="券有效期"
         value="7天"
+        v-on:click.native=""
       )
-    button.btn.btn-reverse.btn-other
+    button.btn.btn-reverse.btn-other(v-on:click="$log(discount)")
       span  其他设置
     button.btn.btn-green.btn-submit(v-on:click="submit")
       span 提交
@@ -93,6 +93,9 @@ export default {
     FileUploader,
     TopHead,
     FormCell
+  },
+  created () {
+    window.vue = this
   },
   data () {
     return {

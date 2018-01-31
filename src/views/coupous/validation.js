@@ -26,7 +26,7 @@ const discount1Validation = [
   },
   {
     key: 'discount',
-    rule: [{name: 'required', errMsg: '请填写折扣力度'}]
+    rule: [{name: 'required', errMsg: '请填写折扣力度'}, {name: 'pattern', errMsg: '折扣仅允许填写数字', pattern: /[^\d.]/}]
   },
   {
     key: 'coupouExpired',

@@ -1,7 +1,7 @@
 import is from 'is-type'
-function validateFunc (formData, param, ruleType, associateParam) {
+function validateFunc ({formData, param, ruleType, associateParam}) {
   let value = formData[param]
-  let funcs = {
+  let hasErrorFuncs = {
     required: function (value) {
       if (is.string(value) && value) {
         return false
@@ -14,9 +14,12 @@ function validateFunc (formData, param, ruleType, associateParam) {
         return value - comparedValue > 0
       }
       return true
+    },
+    pattern: function (value) {
+      return /[^\d.]/.test(value)
     }
   }
-  return funcs[ruleType](value)
+  return hasErrorFuncs[ruleType](value)
 }
 
 export default validateFunc

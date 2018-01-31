@@ -33,7 +33,7 @@ function validateForm (formData, validations) {
       if (validation.key === param) {
         let rules = validation.rule
         return rules.some(rule => {
-          if (validateFunc(formData, param, rule.name, validation.associateKey)) {
+          if (validateFunc({formData, param, ruleType: rule.name, pattern: rule.pattern, associateParam: validation.associateKey})) {
             Toast(rule.errMsg)
             return true
           } else {

@@ -7,6 +7,7 @@
       .mint-cell-value(v-if="!unit")
         input(
           :value="value"
+          v-bind:type="type"
           v-on:input="updateValue($event.target.value)"
           v-bind:placeholder="placeholder"
           v-bind:maxlength="maxlength"
@@ -14,6 +15,7 @@
       .mint-cell-value(v-if="unit" class="unit-cell")
         input(
         :value="value"
+        v-bind:type="type"
         v-on:input="updateValue($event.target.value)"
         v-bind:placeholder="placeholder"
         v-bind:maxlength="maxlength"
@@ -26,6 +28,7 @@
 export default {
   name: 'form-cell',
   props: {
+    type: {default: 'text'},
     title: {},
     value: {},
     unit: {},

@@ -15,12 +15,6 @@ export default {
     Coupous,
     Activity,
     TopHead
-  },
-  data () {
-    return {
-      cellValue: '这是我的文字',
-      pickerValue: ''
-    }
   }
 }
 </script>
