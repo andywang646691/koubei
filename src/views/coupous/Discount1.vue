@@ -1,5 +1,7 @@
 <template lang="pug">
-  .page-discount1
+div
+  router-view.nested-view(v-show="nestedView")
+  .page-discount1(v-show="!nestedView")
     top-head
     .page-title  全场折扣券
     .cell-wrapper
@@ -52,7 +54,7 @@
         value="7天"
         v-on:click.native=""
       )
-    button.btn.btn-reverse.btn-other(v-on:click="$log(discount)")
+    button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'other'})")
       span  其他设置
     button.btn.btn-green.btn-submit(v-on:click="submit")
       span 提交
@@ -85,7 +87,7 @@ import TopHead from '@/components/TopHead.vue'
 import FormCell from '@/components/FormCell.vue'
 import FileUploader from '@/components/FileUploader.vue'
 import { format } from 'date-fns'
-import { validateForm } from '@/services/utils'
+import { validateForm, exposeVueForDebug } from '@/services/utils'
 import { discount1Validation } from './validation'
 export default {
   name: 'discount1',
@@ -95,7 +97,7 @@ export default {
     FormCell
   },
   created () {
-    window.vue = this
+    exposeVueForDebug(this)
   },
   data () {
     return {
@@ -123,6 +125,9 @@ export default {
     }
   },
   computed: {
+    nestedView () {
+      return this.$route.name === 'other'
+    },
     startDate () {
       return format(this.pickerStartValue, 'YYYY-MM-DD')
     },

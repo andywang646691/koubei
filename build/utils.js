@@ -55,6 +55,7 @@ exports.cssLoaders = function (options) {
   }
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+  // Load a global settings.scss file in every vue component: https://github.com/vuejs/vue-loader/issues/328
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),

@@ -48,4 +48,8 @@ function validateForm (formData, validations) {
   return hasError
 }
 
-export { returnFileSize, uploadFile, getFileFromDom, validateForm }
+function exposeVueForDebug (context) {
+  window.vue = process.env.NODE_ENV === 'production' ? null : context
+}
+
+export { returnFileSize, uploadFile, getFileFromDom, validateForm, exposeVueForDebug }

@@ -2,17 +2,19 @@
   .coupou-expired
     mt-radio(
       :options="options",
-      v-model="expiredShown"
+      v-model="expiredType"
     )
-  .cell-wrapper(v-if="expiredShown === 'RELATIVE'")
-    form-cell(
-      title="券有效期"
-      v-model="coupouExpired"
-      unit="天"
-      maxlength="3"
-      type="tel"
-    )
-  .cell-wrapper(v-if="expiredShown === 'FIXED'")
+    .cell-wrapper(v-show="expiredType === 'RELATIVE'")
+      form-cell(
+        title="券有效期"
+        v-model="coupouExpired"
+        unit="天"
+        maxlength="3"
+        type="tel"
+      )
+    .cell-wrapper(v-show="expiredType === 'FIXED'")
+    button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount1'})")
+      span  确定
 </template>
 
 <script>
@@ -20,12 +22,12 @@ import FormCell from '@/components/FormCell.vue'
 export default {
   data () {
     return {
-      expiredShown: 'RELATIVE',
       coupouExpired: '',
+      expiredType: 'RELATIVE',
       options: [
         {
           label: '相对时间',
-          vlaue: 'RELATIVE'
+          value: 'RELATIVE'
         },
         {
           label: '绝对时间',
@@ -45,3 +47,12 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .coupou-expired {
+    background: $bgGray;
+  }
+  button {
+    margin-top: get-vw(20px);
+  }
+</style>

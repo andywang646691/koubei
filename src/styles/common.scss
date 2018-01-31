@@ -38,6 +38,14 @@ img {
 .cell-wrapper {
   margin-top: get-vw(34px);
 }
+.nested-view {
+  position: fixed;
+  width: 100vw;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
 
 button.btn {
   border-radius: 3px;
