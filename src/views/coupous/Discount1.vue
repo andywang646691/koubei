@@ -51,13 +51,14 @@ div
       mt-cell(
         is-link
         title="券有效期"
-        value="7天"
-        v-on:click.native=""
+        v-bind:value="coupouExpiredView"
+        v-on:click.native="$router.push({name: 'discount1.coupouExpired'})"
       )
-    button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'other'})")
-      span  其他设置
-    button.btn.btn-green.btn-submit(v-on:click="submit")
-      span 提交
+    div.btn-list
+      button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount1.other'})")
+        span  其他设置
+      button.btn.btn-green.btn-submit(v-on:click="submit")
+        span 提交
     mt-datetime-picker(
       ref="picker-start"
       type="date"
@@ -87,17 +88,15 @@ import TopHead from '@/components/TopHead.vue'
 import FormCell from '@/components/FormCell.vue'
 import FileUploader from '@/components/FileUploader.vue'
 import { format } from 'date-fns'
-import { validateForm, exposeVueForDebug } from '@/services/utils'
+import { validateForm } from '@/services/utils'
 import { discount1Validation } from './validation'
+import { mapGetters } from 'vuex'
 export default {
   name: 'discount1',
   components: {
     FileUploader,
     TopHead,
     FormCell
-  },
-  created () {
-    exposeVueForDebug(this)
   },
   data () {
     return {
@@ -125,8 +124,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'coupouExpiredView'
+    ]),
     nestedView () {
-      return this.$route.name === 'other'
+      return this.$route.name !== 'discount1'
     },
     startDate () {
       return format(this.pickerStartValue, 'YYYY-MM-DD')
@@ -155,16 +157,13 @@ export default {
 <style lang="scss" scoped>
   .page-discount1 {
     min-height: 100vh;
-    background-color: #f6f6f9;
+    background-color: $bgGray;
     padding-bottom: 40px;
   }
   .page-title {
     margin-bottom: get-vw(25px);
     background: white;
     padding: get-vw(20px) get-vw(30px);
-  }
-  button {
-    margin-top: get-vw(20px);
   }
 
 </style>

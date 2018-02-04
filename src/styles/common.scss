@@ -38,13 +38,16 @@ img {
 .cell-wrapper {
   margin-top: get-vw(34px);
 }
-.nested-view {
-  position: fixed;
-  width: 100vw;
+.top-item {
+  margin-top: 0;
+}
+
+.fill-view {
   min-height: 100vh;
-  top: 0;
-  left: 0;
-  z-index: 100;
+  padding-bottom: 40px;
+}
+.bg-gray {
+  background-color: $bgGray;
 }
 
 button.btn {
@@ -76,5 +79,11 @@ button.btn-other span {
 button.btn-submit span {
   letter-spacing: 60px;
   margin-right: -60px;
+}
+.btn-list {
+  overflow: hidden;
+}
+.btn-list > button{
+  margin-top: get-vw(20px);
 }
 

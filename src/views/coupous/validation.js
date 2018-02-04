@@ -1,3 +1,5 @@
+// 配券页面所需的校验信息
+
 const discount1Validation = [
   {
     key: 'coupouName',

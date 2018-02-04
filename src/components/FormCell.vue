@@ -63,6 +63,7 @@ export default {
   }
   .unit-cell input{
     padding: 0 get-vw(13px);
+    max-width: get-vw(240px);
     ::-webkit-input-placeholder {
       font-size: 16px;
     }
