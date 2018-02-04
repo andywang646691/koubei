@@ -83,6 +83,7 @@
 
 <script>
 import MyCheckbox from '@/components/MyCheckbox'
+import { mapActions } from 'vuex'
 export default {
   name: 'usetime-item',
   data () {
@@ -107,16 +108,18 @@ export default {
     MyCheckbox
   },
   methods: {
+    ...mapActions([
+      'updateUseTime'
+    ]),
     openPicker (id) {
       this.$refs[id].open()
     },
     confirm () {
-      this.setExpiredType(this.expiredType)
-      if (this.expiredType === 'RELATIVE') {
-        this.setCoupouExpired(this.coupouExpired)
-      } else {
-        this.setExpiredStartAndEnd({expiredStart: this.expiredStart, expiredEnd: this.expiredEnd})
-      }
+      this.updateUseTime({
+        dimension: 'W',
+        times: `${this.startTime},${this.endTime}`,
+        values: this.useTimeDay.join(',')
+      })
       this.$router.push({ name: 'other.useTime' })
     }
   }

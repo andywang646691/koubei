@@ -2,30 +2,29 @@ import * as types from '@/store/mutation-types'
 
 // initial state
 const state = {
-  useTimes: '',
-  useTimeDay: []
+  useTimeArr: []
 }
 
 // getters
 const getters = {}
 // actions
 const actions = {
-  setUseTimes ({ commit }, useTimes) {
-    commit(types.SET_USE_TIMES, { useTimes })
+  updateUseTime ({ commit }, useTime) {
+    commit(types.UPDATE_USE_TIME, { useTime })
   },
-  SET_USE_TIME_DAY ({ commit }, useTimeDay) {
-    commit(types.SET_USE_TIME_DAY, { useTimeDay })
+  deleteUseTime ({ commit }, id) {
+    commit(types.DELETE_USE_TIME, { id })
   }
 }
 
 // mutations
 const mutations = {
-  [types.SET_USE_TIMES] (state, { useTimes }) {
-    state.useTimes = useTimes
+  [types.UPDATE_USE_TIME] (state, { useTime }) {
+    state.useTimeArr.push(useTime)
   },
-  [types.SET_USE_TIME_DAY] (state, { useTimeDay }) {
-    state.useTimeDay = useTimeDay
-  },
+  [types.DELETE_USE_TIME] (state, { id }) {
+    state.useTimeArr.splice(id, 1)
+  }
 }
 
 export default {
