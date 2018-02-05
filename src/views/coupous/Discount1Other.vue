@@ -39,7 +39,7 @@ div
       mt-cell(
         is-link
         title="使用时段"
-        v-bind:value="useTime"
+        value="设置"
         v-on:click.native="$router.push({name: 'other.useTime'})"
       )
       form-cell(
@@ -72,6 +72,13 @@ div
         placeholder="不填无限制"
         unit="次"
       )
+    .cell-wrapper
+      mt-cell(
+        is-link
+        title="使用说明"
+        value="设置"
+        v-on:click.native="$router.push({name: 'other.useInstructions'})"
+      )
     button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount1'})")
       span  确定
     mt-actionsheet(
@@ -98,11 +105,11 @@ div
 
 <script>
 import FormCell from '@/components/FormCell.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'discount1-other',
   data () {
     return {
-      useTime: '',
       userWinCount: '',
       userWinFrequency: '',
       donateFlag: '0',
@@ -142,6 +149,9 @@ export default {
     }
   },
   computed: {
+    ...mapState('useTime', {
+      'useTime': state => state.useTimeArr
+    }),
     nestedView () {
       return this.$route.name !== 'discount1.other'
     }

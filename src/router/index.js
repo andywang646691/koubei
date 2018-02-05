@@ -8,6 +8,8 @@ const discount1 = r => require.ensure([], () => r(require('@/views/coupous/disco
 const discount1Other = r => require.ensure([], () => r(require('@/views/coupous/discount1Other')), 'discount1Other')
 const UseTime = r => require.ensure([], () => r(require('@/components/UseTime')), 'UseTime')
 const UseTimeItem = r => require.ensure([], () => r(require('@/components/UseTimeItem')), 'UseTimeItem')
+const UseInstructions = r => require.ensure([], () => r(require('@/components/UseInstructions')), 'UseInstructions')
+const Stores = r => require.ensure([], () => r(require('@/components/Stores')), 'Stores')
 
 let router = new Router({
   routes: [
@@ -40,6 +42,11 @@ let router = new Router({
                   component: UseTimeItem
                 }
               ]
+            },
+            {
+              name: 'other.useInstructions',
+              path: 'UseInstructions',
+              component: UseInstructions
             }
           ]
         },
@@ -47,6 +54,11 @@ let router = new Router({
           name: 'discount1.coupouExpired',
           path: 'coupouExpired',
           component: CoupouExpired
+        },
+        {
+          name: 'discount1.stores',
+          path: 'stores',
+          component: Stores
         }
       ]
     },

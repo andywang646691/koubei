@@ -81,6 +81,9 @@ export default {
     // 清除组件内局部状态数据(全局状态模拟局部状态)
     this.clearUseTime()
     next()
+  },
+  created () {
+    document.title = '使用时段'
   }
 }
 </script>

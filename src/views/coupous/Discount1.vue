@@ -13,6 +13,7 @@ div
         is-link
         title="适用门店"
         value="请选择"
+        v-on:click.native="$router.push({name: 'discount1.stores'})"
       )
     .cell-wrapper
       mt-cell(

@@ -1,3 +1,5 @@
+// 组件样式覆盖
+
 .mint-cell:not(:nth-child(1))::before {
   content: '';
   position: absolute;
@@ -11,4 +13,16 @@
 .mint-cell-wrapper,
 .mint-cell:last-child {
   background-image: none;
+}
+
+button.mint-msgbox-confirm {
+  color: $green;
+}
+
+input.mint-checkbox-input:checked+.mint-checkbox-core {
+  background-color: $green;
+  border-color: $green;
+}
+.mint-checklist {
+  overflow: hidden;
 }
