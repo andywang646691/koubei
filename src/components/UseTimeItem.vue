@@ -108,7 +108,7 @@ export default {
     MyCheckbox
   },
   methods: {
-    ...mapActions([
+    ...mapActions('useTimeItem', [
       'updateUseTime'
     ]),
     openPicker (id) {
@@ -120,8 +120,13 @@ export default {
         times: `${this.startTime},${this.endTime}`,
         values: this.useTimeDay.join(',')
       })
-      this.$router.push({ name: 'other.useTime' })
+      this.$router.push(this.parentRoute.path)
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.parentRoute = from
+    })
   }
 }
 </script>

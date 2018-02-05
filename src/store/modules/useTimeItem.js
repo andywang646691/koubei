@@ -14,6 +14,9 @@ const actions = {
   },
   deleteUseTime ({ commit }, id) {
     commit(types.DELETE_USE_TIME, { id })
+  },
+  clearUseTime ({ commit }) {
+    commit(types.CLEAR_USE_TIME)
   }
 }
 
@@ -24,10 +27,14 @@ const mutations = {
   },
   [types.DELETE_USE_TIME] (state, { id }) {
     state.useTimeArr.splice(id, 1)
+  },
+  [types.CLEAR_USE_TIME] (state) {
+    state.useTimeArr = []
   }
 }
 
 export default {
+  namespaced: true,
   state,
   getters,
   actions,

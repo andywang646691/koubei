@@ -1,5 +1,5 @@
 <template lang="pug">
-  .coupou-expired
+  .coupou-expired.fill-view.bg-gray
     mt-radio(
       :options="options",
       v-model="expiredType"
@@ -110,9 +110,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .coupou-expired {
-    background: $bgGray;
-  }
   button {
     margin-top: get-vw(20px);
   }

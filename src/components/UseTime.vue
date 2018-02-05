@@ -13,8 +13,8 @@ div
           span  {{ item.text }}
     .btn-list
       button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'useTime.item'})")
-        span  添加
-      button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount1.other'})")
+        span 添加
+      button.btn.btn-reverse.btn-other(v-on:click="confirm")
         span 确定
 </template>
 
@@ -30,20 +30,30 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'deleteUseTime'
+    ...mapActions('useTimeItem', [
+      'deleteUseTime',
+      'clearUseTime'
+    ]),
+    ...mapActions('useTime', [
+      'initUseTimeItem',
+      'updateResultUseTime'
     ]),
     showDeleteBox (id) {
       MessageBox.confirm('是否删除该条使用时段?').then(action => {
         this.deleteUseTime(id)
       })
+    },
+    confirm () {
+      // 局部数据映射至全局
+      this.updateResultUseTime()
+      this.$router.push(this.parentRoute.path)
     }
   },
   computed: {
-    ...mapState({
-      useTimeArr: state => state.useTimeItem.useTimeArr,
+    ...mapState('useTimeItem', {
+      useTimeArr: state => state.useTimeArr,
       useTimeViewArr: state => {
-        return state.useTimeItem.useTimeArr.map((obj, index) => {
+        return state.useTimeArr.map((obj, index) => {
           let weeks = obj.values.split(',').map(val => weekDict[val - 1])
           return {
             title: `${weeks.join('，')}`,
@@ -59,6 +69,18 @@ export default {
     }
   },
   components: {
+  },
+  beforeRouteEnter (to, from, next) {
+    // 初始化组件局部数据
+    next(vm => {
+      vm.initUseTimeItem()
+      vm.parentRoute = from
+    })
+  },
+  beforeRouteLeave (to, from, next) {
+    // 清除组件内局部状态数据(全局状态模拟局部状态)
+    this.clearUseTime()
+    next()
   }
 }
 </script>
