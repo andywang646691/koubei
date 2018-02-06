@@ -8,6 +8,8 @@ import stores from './modules/stores'
 import discount1Other from './modules/discount1Other'
 Vue.use(Vuex)
 
+
+
 export default new Vuex.Store({
   modules: {
     coupouExpired,

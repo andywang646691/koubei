@@ -1,9 +1,12 @@
 import * as types from '@/store/mutation-types'
 
 // initial state
-const state = {
-  useTimeArr: []
+function initState () {
+  return {
+    useTimeArr: []
+  }
 }
+const state = initState()
 
 // getters
 const getters = {}
@@ -30,6 +33,9 @@ const mutations = {
   },
   [types.CLEAR_USE_TIME] (state) {
     state.useTimeArr = []
+  },
+  [types.RESET_ALL_STATE] (state) {
+    Object.assign(state, initState())
   }
 }
 

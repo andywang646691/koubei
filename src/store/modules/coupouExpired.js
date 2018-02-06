@@ -1,12 +1,15 @@
 import * as types from '@/store/mutation-types'
 
 // initial state
-const state = {
-  expiredType: 'RELATIVE',
-  coupouExpired: '',
-  expiredStart: '',
-  expiredEnd: ''
+function initState () {
+  return {
+    expiredType: 'RELATIVE',
+    coupouExpired: '',
+    expiredStart: '',
+    expiredEnd: ''
+  }
 }
+const state = initState()
 // getters
 const getters = {
   coupouExpiredView: state => state.expiredType === 'RELATIVE' ? state.coupouExpired + '天' : `${state.expiredStart} - ${state.expiredEnd}`
@@ -39,6 +42,9 @@ const mutations = {
   },
   [types.SET_COUPOU_EXPIRED] (state, { coupouExpired }) {
     state.coupouExpired = coupouExpired
+  },
+  [types.RESET_ALL_STATE] (state) {
+    Object.assign(state, initState())
   }
 }
 

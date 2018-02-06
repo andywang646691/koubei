@@ -1,9 +1,12 @@
 import * as types from '@/store/mutation-types'
 
 // initial state
-const state = {
-  shops: []
+function initState () {
+  return {
+    shops: []
+  }
 }
+const state = initState()
 
 // getters
 const getters = {}
@@ -18,6 +21,9 @@ const actions = {
 const mutations = {
   [types.SET_SHOPS] (state, { shops }) {
     state.shops = shops
+  },
+  [types.RESET_ALL_STATE] (state) {
+    Object.assign(state, initState())
   }
 }
 

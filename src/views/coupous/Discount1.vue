@@ -132,6 +132,43 @@ export default {
     ...mapState('stores', [
       'shops'
     ]),
+    ...mapState('discount1Other', [
+      'other'
+    ]),
+    requestParams () {
+      return {
+        type: 'DIRECT_SEND',
+        name: `${this.coupouName}${format(new Date(), 'MMDD')}`,
+        startTime: `${this.startDate} 00:00:00`,
+        endTime: `${this.endDate} 23:59:59`,
+        autoDelayFlag: this.other.autoDelayFlag,
+        constraintInfo: {
+          userWinCount: this.other.userWinCount,
+          userWinFrequency: this.other.userWinFrequency,
+          crowdRestriction: this.crowdType,
+          suitShops: this.shops,
+          minCost: this.other.lowestLimit
+        },
+        promoTools: [
+          {
+            voucher: {},
+            sendRule: {
+              minCost: this.other.lowestLimit
+            }
+          }
+        ],
+        publishChannels: [
+          {
+            type: 'SHOP_DETAIL',
+            name: '店铺页投放'
+          },
+          {
+            type: 'SHORT_LINK',
+            name: '短连接投放'
+          }
+        ]
+      }
+    },
     nestedView () {
       return this.$route.name !== 'discount1'
     },
@@ -144,6 +181,7 @@ export default {
   },
   methods: {
     submit () {
+      // 需校验的字段
       let formData = {
         coupouName: this.coupouName,
         shops: this.shops,
