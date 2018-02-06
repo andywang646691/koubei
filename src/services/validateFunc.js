@@ -6,6 +6,9 @@ function validateFunc ({formData, param, ruleType, associateParam}) {
       if (is.string(value) && value) {
         return false
       }
+      if (is.array(value)) {
+        return !!value.length
+      }
       return true
     },
     'date-compare': function (value) {

@@ -92,6 +92,7 @@ import { format } from 'date-fns'
 import { validateForm } from '@/services/utils'
 import { discount1Validation } from './validation'
 import { mapGetters, mapState } from 'vuex'
+import { createCampaign } from '@/apis/index'
 export default {
   name: 'discount1',
   components: {
@@ -145,11 +146,18 @@ export default {
     submit () {
       let formData = {
         coupouName: this.coupouName,
-        discount: this.discount,
+        shops: this.shops,
         pickerStartValue: this.pickerStartValue,
-        pickerEndValue: this.pickerEndValue
+        pickerEndValue: this.pickerEndValue,
+        brandName: this.brandName,
+        logo: this.logo,
+        crowdType: this.crowdType,
+        discount: this.discount,
+        coupouExpired: this.coupouExpired
       }
       console.log(`result: ${validateForm(formData, discount1Validation)}`)
+      if (validateForm(formData, discount1Validation)) return true
+      createCampaign(formData)
     },
     openPicker (id) {
       this.$refs[id].open()

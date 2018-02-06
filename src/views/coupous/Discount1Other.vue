@@ -67,7 +67,7 @@ div
         unit="次"
       )
       form-cell(
-        title="每个用户总共参与次数"
+        title="每个用户每天参与次数"
         v-model="userWinFrequency"
         placeholder="不填无限制"
         unit="次"
@@ -79,7 +79,7 @@ div
         value="设置"
         v-on:click.native="$router.push({name: 'other.useInstructions'})"
       )
-    button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount1'})")
+    button.btn.btn-reverse.btn-other(v-on:click="confirm")
       span  确定
     mt-actionsheet(
       :actions="autoDelayOptions"
@@ -105,7 +105,7 @@ div
 
 <script>
 import FormCell from '@/components/FormCell.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'discount1-other',
   data () {
@@ -141,7 +141,7 @@ export default {
       sheetShwon3: false,
       sheetShwon4: false,
       sheetShwon5: false,
-      autoDelayFlag: false,
+      autoDelayFlag: 'N',
       autoDelayOptions: [
         {name: '是', method: () => { this.autoDelayFlag = 'Y' }},
         {name: '否', method: () => { this.autoDelayFlag = 'N' }}
@@ -152,6 +152,9 @@ export default {
     ...mapState('useTime', {
       'useTime': state => state.useTimeArr
     }),
+    ...mapState('useInstructions', [
+      'useInstructions'
+    ]),
     nestedView () {
       return this.$route.name !== 'discount1.other'
     }
@@ -159,8 +162,35 @@ export default {
   components: {
     FormCell
   },
+  methods: {
+    ...mapActions('discount1Other', [
+      'setDiscount1Other'
+    ]),
+    confirm () {
+      let data = JSON.parse(JSON.stringify({
+        autoDelayFlag: this.autoDelayFlag,
+        distriAmount: this.distriAmount,
+        useway: this.useway,
+        effectTime: this.effectTime,
+        payChannelLimit: this.payChannelLimit,
+        useTime: this.useTime,
+        lowestLimit: this.lowestLimit,
+        hightestLimit: this.hightestLimit,
+        donateFlag: this.donateFlag,
+        userWinCount: this.userWinCount,
+        userWinFrequency: this.userWinFrequency,
+        useInstructions: this.useInstructions
+      }))
+      this.setDiscount1Other(data)
+      this.$router.push({name: 'discount1'})
+    }
+  },
   created () {
     document.title = '其他设置'
+    let data = JSON.parse(JSON.stringify(this.$store.state.discount1Other.other))
+    delete data.useTime
+    delete data.useInstructions
+    Object.assign(this.$data, data)
   }
 }
 </script>

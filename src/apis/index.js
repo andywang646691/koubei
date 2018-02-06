@@ -1,6 +1,6 @@
 
 import axios from 'axios'
-import { allShopApi } from './apis'
+import { allShopApi, alpCreateCampaign } from './apis'
 
 function getShopInfo () {
   return axios({
@@ -9,4 +9,11 @@ function getShopInfo () {
   })
 }
 
-export { getShopInfo }
+function createCampaign () {
+  return axios({
+    method: 'POST',
+    url: alpCreateCampaign
+  })
+}
+
+export { getShopInfo, createCampaign }

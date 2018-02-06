@@ -6,7 +6,7 @@ const discount1Validation = [
     rule: [{name: 'required', errMsg: '请填写券名称'}]
   },
   {
-    key: 'store',
+    key: 'shops',
     rule: [{name: 'required', errMsg: '.请选择适用门店'}]
   },
   {

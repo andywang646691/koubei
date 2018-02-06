@@ -115,11 +115,13 @@ export default {
       this.$refs[id].open()
     },
     confirm () {
-      this.updateUseTime({
-        dimension: 'W',
-        times: `${this.startTime},${this.endTime}`,
-        values: this.useTimeDay.join(',')
-      })
+      if (this.useTimeDay.length > 0) {
+        this.updateUseTime({
+          dimension: 'W',
+          times: `${this.startTime},${this.endTime}`,
+          values: this.useTimeDay.join(',')
+        })
+      }
       this.$router.push(this.parentRoute.path)
     }
   },

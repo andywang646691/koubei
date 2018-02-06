@@ -5,6 +5,7 @@ import useTimeItem from './modules/useTimeItem'
 import useTime from './modules/useTime'
 import useInstructions from './modules/useInstructions'
 import stores from './modules/stores'
+import discount1Other from './modules/discount1Other'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     useTimeItem,
     useTime,
     useInstructions,
-    stores
+    stores,
+    discount1Other
   }
 })
