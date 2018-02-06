@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import FastClick from 'fastclick'
+import { intercept } from '@/services/intercept'
 import { Cell, DatetimePicker, Field, Actionsheet, Radio, Checklist, CellSwipe } from 'mint-ui'
 import { formatCrowdType, boolTransform, dictFormat } from '@/services/filters.js'
 import store from '@/store/index'
@@ -16,6 +17,8 @@ Vue.component(Checklist.name, Checklist)
 Vue.filter('formatCrowdType', formatCrowdType)
 Vue.filter('boolTransform', boolTransform)
 Vue.filter('dictFormat', dictFormat)
+
+intercept({})
 
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function () {
