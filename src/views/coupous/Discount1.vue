@@ -91,7 +91,7 @@ import FileUploader from '@/components/FileUploader.vue'
 import { format } from 'date-fns'
 import { validateForm } from '@/services/utils'
 import { discount1Validation } from './validation'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'discount1',
   components: {
@@ -127,6 +127,9 @@ export default {
   computed: {
     ...mapGetters([
       'coupouExpiredView'
+    ]),
+    ...mapState('stores', [
+      'shops'
     ]),
     nestedView () {
       return this.$route.name !== 'discount1'

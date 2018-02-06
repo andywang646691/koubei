@@ -1,31 +1,39 @@
 <template lang="pug">
   .stores.fill-view.bg-gray
-    .total
-      mt-checkbox(label="全选" v-model="allChecked")
-      span  共 {{ storeCount }}
-    .cell-wrapper(v-for="city in shopInCityList")
-      mt-checklist(
-        v-bind:title="city.cityName"
-        v-model="shops"
-        v-bind:options="city.shopOptions"
-      )
+    mt-cell(title="暂无适用门店" v-show="!shopInCityList.length")
+    div(v-show="shopInCityList.length")
+      .total
+        mt-checkbox(label="全选" v-model="allChecked" v-on:change="selectAll")
+        span  共 {{ storeCount }}
+      .cell-wrapper(v-for="city in shopInCityList")
+        mt-checklist(
+          v-bind:title="city.cityName"
+          v-model="shops"
+          v-bind:options="city.shopOptions"
+        )
+      .btn-list
+        button.btn.btn-reverse.btn-other(v-on:click="confirm")
+          span 确定
 </template>
 
 <script>
 import MtCheckbox from '@/components/MtCheckbox'
 import { getShopInfo } from '@/apis/index'
 import { Toast } from 'mint-ui'
+import { mapActions } from 'vuex'
 export default {
   name: 'stores',
   data () {
     return {
-      storeCount: '4',
+      storeCount: '0',
       cityList: [],
-      allChecked: false,
-      shops: []
+      shops: this.$store.state.stores.shops.slice(0)
     }
   },
   computed: {
+    allChecked () {
+      return this.shops.length === +this.storeCount
+    },
     allShops () {
       return this.cityList.reduce((acc, city) => {
         city.shops.forEach(shop => {
@@ -47,13 +55,20 @@ export default {
       })
     }
   },
-  watch: {
-    allChecked (val) {
+  methods: {
+    ...mapActions('stores', [
+      'setShops'
+    ]),
+    selectAll (val) {
       if (val) {
         this.shops = this.allShops
       } else {
         this.shops = []
       }
+    },
+    confirm () {
+      this.setShops(this.shops)
+      this.$router.push(this.parentRoute.path)
     }
   },
   components: {
@@ -89,6 +104,11 @@ export default {
         this.cityList = newData
       }
     }).catch(error => Toast(error))
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.parentRoute = from
+    })
   }
 }
 </script>
