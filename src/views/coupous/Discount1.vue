@@ -93,15 +93,13 @@ import { validateForm } from '@/services/utils'
 import { discount1Validation } from './validation'
 import { mapGetters, mapState } from 'vuex'
 import { createCampaign } from '@/apis/index'
+import { Toast } from 'mint-ui'
 export default {
   name: 'discount1',
   components: {
     FileUploader,
     TopHead,
     FormCell
-  },
-  created () {
-    document.title = '灵犀数字营销'
   },
   data () {
     return {
@@ -237,7 +235,15 @@ export default {
       }
       console.log(`result: ${validateForm(formData, discount1Validation)}`)
       if (validateForm(formData, discount1Validation)) return true
-      createCampaign(this.requestParams)
+      createCampaign(this.requestParams).then(res => {
+        let data = res.data
+        if (data.status === 0) {
+          Toast('创建新活动成功')
+          this.$router.push('/')
+        } else {
+          Toast(data.msg)
+        }
+      }).catch(err => Toast(err))
     },
     openPicker (id) {
       this.$refs[id].open()

@@ -6,7 +6,12 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    window.ap.setNavigationBar({
+      backgroundColor: '#1ab394'
+    })
+  }
 }
 </script>
 

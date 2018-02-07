@@ -185,7 +185,6 @@ export default {
     }
   },
   created () {
-    document.title = '其他设置'
     let data = JSON.parse(JSON.stringify(this.$store.state.discount1Other.other))
     delete data.useTime
     delete data.useInstructions

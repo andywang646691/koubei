@@ -129,9 +129,6 @@ export default {
     next(vm => {
       vm.parentRoute = from
     })
-  },
-  created () {
-    document.title = '添加使用时段'
   }
 }
 </script>

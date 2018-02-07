@@ -99,12 +99,6 @@ export default {
       }
       this.$router.push({ name: 'discount1' })
     }
-  },
-  created () {
-    document.title = '券有效期'
-  },
-  destroyed () {
-    document.title = '灵犀数字营销'
   }
 }
 </script>
