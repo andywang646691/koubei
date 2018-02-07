@@ -63,6 +63,35 @@ export default {
       'setImgId',
       'setQiniuUrl'
     ]),
+    uploadToQiniu ({ fileElem, form }) {
+      uploadFile({
+        fileElem,
+        url: this.domainInUpload,
+        data: form,
+        uploaderName: this.uploaderName
+      }).then(data => {
+        if (data.key) {
+          let url = `${this.domainInDownload}/${data.key}`
+          this.qiniuUrl = url
+          this.setQiniuUrl(url)
+          Toast(`${this.uploaderName}上传成功`)
+        }
+      }).catch(() => {
+        Toast(`${this.uploaderName}上传失败`)
+      })
+    },
+    uploadToBackend ({ fileElem, form }) {
+      uploadFile({
+        fileElem,
+        url: this.backend,
+        data: form,
+        uploaderName: this.uploaderName
+      }).then(data => {
+        if (data.status === 0) {
+          this.setImgId(data.data.imageId)
+        }
+      })
+    },
     bindToFileElem () {
       let fileElem = document.getElementById('input-file')
       fileElem.click()
@@ -83,31 +112,8 @@ export default {
       let form2 = new FormData()
       form2.append('fileParameter', fileData.file)
       form2.append('clientId', this.clientId)
-      uploadFile({
-        fileElem,
-        url: this.domainInUpload,
-        data: form,
-        uploaderName: this.uploaderName
-      }).then(data => {
-        if (data.key) {
-          let url = `${this.domainInDownload}/${data.key}`
-          this.qiniuUrl = url
-          this.setQiniuUrl(url)
-          Toast(`${this.uploaderName}上传成功`)
-        }
-      }).catch(() => {
-        Toast(`${this.uploaderName}上传失败`)
-      })
-      uploadFile({
-        fileElem,
-        url: this.backend,
-        data: form2,
-        uploaderName: this.uploaderName
-      }).then(data => {
-        if (data.status === 0) {
-          this.setImgId(data.data.imageId)
-        }
-      })
+      this.uploadToQiniu({ fileElem, form })
+      this.uploadToBackend({ fileElem, form: form2 })
     },
     startUpload (e) {
       console.log(e)
@@ -123,9 +129,7 @@ export default {
         } else {
           Promise.reject(new Error('获取Token失败'))
         }
-        console.log(res)
       }).catch(err => {
-        console.log(err)
         Toast(err)
       })
     }

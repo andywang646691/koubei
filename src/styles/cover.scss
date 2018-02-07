@@ -26,3 +26,8 @@ input.mint-checkbox-input:checked+.mint-checkbox-core {
 .mint-checklist {
   overflow: hidden;
 }
+
+.mint-indicator {
+  z-index: 100;
+  position: relative;
+}
