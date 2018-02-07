@@ -126,8 +126,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('coupouExpired', [
       'coupouExpiredView'
+    ]),
+    ...mapState('coupouExpired', [
+      'expiredType',
+      'coupouExpired',
+      'expiredStart',
+      'expiredEnd'
     ]),
     ...mapState('stores', [
       'shops'
@@ -137,21 +143,46 @@ export default {
     ]),
     requestParams () {
       return {
-        type: 'DIRECT_SEND',
+        type: this.other.useway,
         name: `${this.coupouName}${format(new Date(), 'MMDD')}`,
         startTime: `${this.startDate} 00:00:00`,
         endTime: `${this.endDate} 23:59:59`,
         autoDelayFlag: this.other.autoDelayFlag,
         constraintInfo: {
           userWinCount: this.other.userWinCount,
-          userWinFrequency: this.other.userWinFrequency,
+          userWinFrequency: `D||${this.other.userWinFrequency}`,
           crowdRestriction: this.crowdType,
           suitShops: this.shops,
           minCost: this.other.lowestLimit
         },
+        budgetInfo: {
+          budgetTotal: this.other.distriAmount,
+          budgetType: 'QUANTITY'
+        },
         promoTools: [
           {
-            voucher: {},
+            voucher: {
+              brandName: this.brandName,
+              donateFlag: this.other.donateFlag,
+              effectType: this.other.effectTime,
+              endTime: `${this.expiredEnd} 23:59:59`,
+              startTime: `${this.expiredStart} 00:00:00`,
+              logo: this.logo,
+              logoQiniu: this.logoQiniu,
+              maxAmount: this.other.hightestLimit,
+              name: this.coupouName,
+              rate: this.discount,
+              relativeTime: this.coupouExpired,
+              type: 'RATE',
+              useInstructions: this.other.useInstructions,
+              useRule: {
+                limitRule: this.other.payChannelLimit,
+                minConsume: this.other.lowestLimit,
+                suitShops: this.shops,
+                useTime: this.other.useTime
+              },
+              validateType: this.expiredType
+            },
             sendRule: {
               minCost: this.other.lowestLimit
             }
