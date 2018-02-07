@@ -70,6 +70,12 @@ export default {
     fileActionOnchange (e) {
       let fileElem = e.target
       let fileData = getFileFromDom(fileElem)
+      if (fileData.size > 2 * 1024 * 1024) {
+        return Toast('上传的logo太大了')
+      }
+      if (!/(png)|(jpe?g)/.test(fileData.type)) {
+        return Toast('仅允许png或jpg格式的图片')
+      }
       let form = new FormData()
       form.append('file', fileData.file)
       form.append('key', `${Date.now()}${this.clientId}.${fileData.type}`)
@@ -109,7 +115,7 @@ export default {
     getQiniuToken () {
       return axios({
         method: 'POST',
-        url: '/neuStar/alp/getUpLoadToken.json?transFrom=ALP'
+        url: '/neuStar/alp/getUpLoadToken.json'
       }).then(res => {
         let data = res.data
         if (data.status === 0) {
@@ -117,7 +123,9 @@ export default {
         } else {
           Promise.reject(new Error('获取Token失败'))
         }
+        console.log(res)
       }).catch(err => {
+        console.log(err)
         Toast(err)
       })
     }

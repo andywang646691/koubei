@@ -20,6 +20,13 @@ function validateFunc ({formData, param, ruleType, associateParam}) {
     },
     pattern: function (value) {
       return /[^\d.]/.test(value)
+    },
+    'discount-scope': function (value) {
+      let num = +value
+      if (is.number(num)) {
+        return !(num >= 1.1 && num <= 9.9)
+      }
+      return true
     }
   }
   return hasErrorFuncs[ruleType](value)

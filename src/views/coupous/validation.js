@@ -23,12 +23,8 @@ const discount1Validation = [
     rule: [{name: 'required', errMsg: '请上传券LOGO'}]
   },
   {
-    key: 'crowdType',
-    rule: [{name: 'required', errMsg: '请选择领取人群'}]
-  },
-  {
     key: 'discount',
-    rule: [{name: 'required', errMsg: '请填写折扣力度'}, {name: 'pattern', errMsg: '折扣仅允许填写数字', pattern: /[^\d.]/}]
+    rule: [{name: 'required', errMsg: '请填写折扣力度'}, {name: 'pattern', errMsg: '折扣仅允许填写数字', pattern: /[^\d.]/}, {name: 'discount-scope', errMsg: '折扣力度仅允许1.1~9.9折'}]
   },
   {
     key: 'coupouExpired',

@@ -12,7 +12,6 @@ div
       form-cell(
         title="发放总量"
         unit="张"
-        maxlength="3"
         type="tel"
         placeholder="不填无限制"
         v-model="distriAmount"

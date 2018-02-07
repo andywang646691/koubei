@@ -54,10 +54,10 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      expiredStartValue: new Date(),
-      expiredEndValue: new Date(),
-      coupouExpired: this.$store.state.coupouExpired.coupouExpired || '1',
-      expiredType: 'RELATIVE',
+      expiredStartValue: new Date(this.$store.state.coupouExpired.expiredStart),
+      expiredEndValue: new Date(this.$store.state.coupouExpired.expiredEnd),
+      coupouExpired: this.$store.state.coupouExpired.coupouExpired,
+      expiredType: this.$store.state.coupouExpired.expiredType,
       options: [
         {
           label: '相对时间',

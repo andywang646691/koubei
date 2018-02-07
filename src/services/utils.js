@@ -9,9 +9,11 @@ function returnFileSize (bytes) {
 }
 
 function getFileFromDom (elem) {
-  let matchType = elem.value.match(/\.(.+)$/)
+  let file = elem.files[0]
+  let matchType = file.name.match(/\.(.+)$/)
   return {
-    file: elem.files[0],
+    file,
+    size: file.size,
     type: matchType && matchType[1]
   }
 }

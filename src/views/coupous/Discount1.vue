@@ -100,6 +100,9 @@ export default {
     TopHead,
     FormCell
   },
+  created () {
+    document.title = '灵犀数字营销'
+  },
   data () {
     return {
       coupouName: '',
@@ -155,7 +158,7 @@ export default {
         autoDelayFlag: this.other.autoDelayFlag,
         constraintInfo: {
           userWinCount: this.other.userWinCount,
-          userWinFrequency: `D||${this.other.userWinFrequency}`,
+          userWinFrequency: this.other.userWinFrequency ? `D||${this.other.userWinFrequency}` : '',
           crowdRestriction: this.crowdType,
           suitShops: this.shops,
           minCost: this.other.lowestLimit
@@ -229,7 +232,7 @@ export default {
         logo: this.imgId,
         crowdType: this.crowdType,
         discount: this.discount,
-        coupouExpired: this.coupouExpired,
+        coupouExpired: this.coupouExpired || this.coupouExpiredView,
         useInstructions: this.other.useInstructions
       }
       console.log(`result: ${validateForm(formData, discount1Validation)}`)
