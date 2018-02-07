@@ -56,7 +56,7 @@ export default {
     return {
       expiredStartValue: new Date(),
       expiredEndValue: new Date(),
-      coupouExpired: '1',
+      coupouExpired: this.$store.state.coupouExpired.coupouExpired || '1',
       expiredType: 'RELATIVE',
       options: [
         {
@@ -82,7 +82,7 @@ export default {
     FormCell
   },
   methods: {
-    ...mapActions([
+    ...mapActions('coupouExpired', [
       'setExpiredType',
       'setExpiredStartAndEnd',
       'setCoupouExpired'

@@ -107,12 +107,12 @@ export default {
       discount: '8.5',
       pickerStartValue: new Date(),
       pickerEndValue: new Date(),
-      crowdType: 'ALL',
+      crowdType: '',
       sheetShwon1: false,
       peopleIsAllowed: [
         {
           name: '全体用户',
-          method: () => { this.crowdType = 'ALL' }
+          method: () => { this.crowdType = '' }
         },
         {
           name: '大学生用户',
@@ -141,8 +141,13 @@ export default {
     ...mapState('discount1Other', [
       'other'
     ]),
+    ...mapState('fileUploader', [
+      'qiniuUrl',
+      'imgId'
+    ]),
     requestParams () {
-      return {
+      let params = {
+        clientId: this.clientId || '150759774805270',
         type: this.other.useway,
         name: `${this.coupouName}${format(new Date(), 'MMDD')}`,
         startTime: `${this.startDate} 00:00:00`,
@@ -167,11 +172,11 @@ export default {
               effectType: this.other.effectTime,
               endTime: `${this.expiredEnd} 23:59:59`,
               startTime: `${this.expiredStart} 00:00:00`,
-              logo: this.logo,
-              logoQiniu: this.logoQiniu,
+              logo: this.imgId,
+              logoQiniu: this.qiniuUrl,
               maxAmount: this.other.hightestLimit,
               name: this.coupouName,
-              rate: this.discount,
+              rate: (+this.discount * 0.1).toFixed(2),
               relativeTime: this.coupouExpired,
               type: 'RATE',
               useInstructions: this.other.useInstructions,
@@ -199,6 +204,8 @@ export default {
           }
         ]
       }
+      if (!this.other.distriAmount) delete params.budgetInfo
+      return params
     },
     nestedView () {
       return this.$route.name !== 'discount1'
@@ -219,14 +226,15 @@ export default {
         pickerStartValue: this.pickerStartValue,
         pickerEndValue: this.pickerEndValue,
         brandName: this.brandName,
-        logo: this.logo,
+        logo: this.imgId,
         crowdType: this.crowdType,
         discount: this.discount,
-        coupouExpired: this.coupouExpired
+        coupouExpired: this.coupouExpired,
+        useInstructions: this.other.useInstructions
       }
       console.log(`result: ${validateForm(formData, discount1Validation)}`)
       if (validateForm(formData, discount1Validation)) return true
-      createCampaign(formData)
+      createCampaign(this.requestParams)
     },
     openPicker (id) {
       this.$refs[id].open()

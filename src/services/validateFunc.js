@@ -7,7 +7,7 @@ function validateFunc ({formData, param, ruleType, associateParam}) {
         return false
       }
       if (is.array(value)) {
-        return !!value.length
+        return !value.length
       }
       return true
     },

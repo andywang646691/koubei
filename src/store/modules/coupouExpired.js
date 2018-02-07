@@ -1,12 +1,13 @@
 import * as types from '@/store/mutation-types'
+import { format } from 'date-fns'
 
 // initial state
 function initState () {
   return {
     expiredType: 'RELATIVE',
     coupouExpired: '',
-    expiredStart: '',
-    expiredEnd: ''
+    expiredStart: format(new Date(), 'YYYY-MM-DD'),
+    expiredEnd: format(new Date(), 'YYYY-MM-DD')
   }
 }
 const state = initState()

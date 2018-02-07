@@ -49,7 +49,7 @@ div
         placeholder="不填无限制"
       )
       form-cell(
-        title="最高消费"
+        title="最高优惠"
         type="tel"
         v-model="hightestLimit"
         placeholder="不填无限制"

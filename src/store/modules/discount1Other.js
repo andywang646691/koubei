@@ -13,8 +13,8 @@ function initState () {
       lowestLimit: '',
       hightestLimit: '',
       donateFlag: '0',
-      userWinCount: '0',
-      userWinFrequency: '0',
+      userWinCount: '',
+      userWinFrequency: '',
       useInstructions: ''
     }
   }

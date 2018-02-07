@@ -27,13 +27,11 @@ export default {
     return {
       storeCount: '0',
       cityList: [],
-      shops: this.$store.state.stores.shops.slice(0)
+      shops: this.$store.state.stores.shops.slice(0),
+      allChecked: false
     }
   },
   computed: {
-    allChecked () {
-      return this.shops.length === +this.storeCount
-    },
     allShops () {
       return this.cityList.reduce((acc, city) => {
         city.shops.forEach(shop => {
@@ -55,10 +53,21 @@ export default {
       })
     }
   },
+  watch: {
+    shops (val) {
+      this.allChecked = val.length === +this.storeCount
+    },
+    storeCount (val) {
+      this.allChecked = this.shops.length === +val
+    }
+  },
   methods: {
     ...mapActions('stores', [
       'setShops'
     ]),
+    initCheck () {
+      this.allChecked = this.shops.length === +this.storeCount
+    },
     selectAll (val) {
       if (val) {
         this.shops = this.allShops

@@ -9,10 +9,11 @@ function getShopInfo () {
   })
 }
 
-function createCampaign () {
+function createCampaign (data) {
   return axios({
     method: 'POST',
-    url: alpCreateCampaign
+    url: alpCreateCampaign,
+    data
   })
 }
 

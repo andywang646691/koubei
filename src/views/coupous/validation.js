@@ -33,6 +33,10 @@ const discount1Validation = [
   {
     key: 'coupouExpired',
     rule: [{name: 'required', errMsg: '请选择券有效期'}]
+  },
+  {
+    key: 'useInstructions',
+    rule: [{name: 'required', errMsg: '请在其他设置中填写券的使用说明'}]
   }
 ]
 
