@@ -35,6 +35,9 @@
       .cell-wrapper
         file-uploader(
         title="券LOGO"
+        v-bind:clientId="clientId"
+        v-on:logoUrl="logoUrl = arguments[0]"
+        v-on:logoId="logoId = arguments[0]"
         )
         mt-cell(
         is-link
@@ -109,6 +112,9 @@ export default {
   },
   data () {
     return {
+      clientId: '150759774805270',
+      logoUrl: '',
+      logoId: '',
       coupouName: '',
       brandName: '',
       worthValue: '',
@@ -149,13 +155,9 @@ export default {
     ...mapState('discount2Other', [
       'other'
     ]),
-    ...mapState('fileUploader', [
-      'qiniuUrl',
-      'imgId'
-    ]),
     requestParams () {
       let params = {
-        clientId: this.clientId || '150759774805270',
+        clientId: this.clientId,
         type: this.other.useway,
         name: `${this.coupouName}${format(new Date(), 'MMDD')}`,
         startTime: `${this.startDate} 00:00:00`,
@@ -182,8 +184,8 @@ export default {
               effectType: this.other.effectTime,
               endTime: `${this.expiredEnd} 23:59:59`,
               startTime: `${this.expiredStart} 00:00:00`,
-              logo: this.imgId,
-              logoQiniu: this.qiniuUrl,
+              logo: this.logoId,
+              logoQiniu: this.logoUrl,
               maxAmount: this.other.hightestLimit,
               name: this.coupouName,
               rate: (+this.discount * 0.1).toFixed(2),
@@ -236,11 +238,11 @@ export default {
         pickerStartValue: this.pickerStartValue,
         pickerEndValue: this.pickerEndValue,
         brandName: this.brandName,
-        logo: this.imgId,
+        logo: this.logoId,
         crowdType: this.crowdType,
         worthValue: this.worthValue,
         lowestLimit: this.lowestLimit,
-        coupouExpired: this.coupouExpired || this.coupouExpiredView,
+        coupouExpired: this.coupouExpiredView.slice(0, -1),
         useInstructions: this.other.useInstructions
       }
       console.log(`result: ${validateForm(formData, discount2Validation)}`)

@@ -19,7 +19,6 @@
 import { Toast } from 'mint-ui'
 import axios from 'axios'
 import { uploadFile, getFileFromDom } from '@/services/utils.js'
-import { mapActions } from 'vuex'
 export default {
   name: 'file-uploader',
   components: {
@@ -39,6 +38,9 @@ export default {
     },
     title: {
       default: '名称'
+    },
+    flag: {
+      default: 'logo'
     }
   },
   computed: {
@@ -59,10 +61,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions('fileUploader', [
-      'setImgId',
-      'setQiniuUrl'
-    ]),
     uploadToQiniu ({ fileElem, form }) {
       uploadFile({
         fileElem,
@@ -73,7 +71,7 @@ export default {
         if (data.key) {
           let url = `${this.domainInDownload}/${data.key}`
           this.qiniuUrl = url
-          this.setQiniuUrl(url)
+          this.$emit(`${this.flag}Url`, url)
           Toast(`${this.uploaderName}上传成功`)
         }
       }).catch(() => {
@@ -88,7 +86,7 @@ export default {
         uploaderName: this.uploaderName
       }).then(data => {
         if (data.status === 0) {
-          this.setImgId(data.data.imageId)
+          this.$emit(`${this.flag}Id`, data.data.imageId)
         }
       })
     },

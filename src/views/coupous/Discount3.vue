@@ -1,69 +1,82 @@
 <template lang="pug">
-div
-  router-view.nested-view(v-show="nestedView")
-  .page-discount1(v-show="!nestedView")
-    top-head
-    .page-title  全场折扣券
-    .cell-wrapper
-      form-cell(
+  div
+    router-view.nested-view(v-show="nestedView")
+    .page-discount3(v-show="!nestedView")
+      top-head
+      .page-title  单品折扣券
+      .cell-wrapper
+        form-cell(
         title="券名称"
         v-model="coupouName"
-      )
-      mt-cell(
+        )
+        mt-cell(
         is-link
         title="适用门店"
         value="请选择"
-        v-on:click.native="$router.push({name: 'discount1.stores'})"
-      )
-    .cell-wrapper
-      mt-cell(
+        v-on:click.native="$router.push({name: 'discount3.stores'})"
+        )
+      .cell-wrapper
+        mt-cell(
         is-link
         title="活动开始时间"
         v-bind:value="startDate"
         v-on:click.native="openPicker('picker-start')"
-      )
-      mt-cell(
+        )
+        mt-cell(
         is-link
         title="活动结束时间"
         v-bind:value="endDate"
         v-on:click.native="openPicker('picker-end')"
-      )
-      form-cell(
+        )
+        form-cell(
         title="品牌名称"
         v-model="brandName"
-      )
-    .cell-wrapper
-      file-uploader(
+        )
+      .cell-wrapper
+        file-uploader(
         title="券LOGO"
-        v-bind:clientId="clientId"
         v-on:logoUrl="logoUrl = arguments[0]"
         v-on:logoId="logoId = arguments[0]"
-      )
-      mt-cell(
+        )
+        mt-cell(
         is-link
         title="领取人群限制"
         v-bind:value="crowdType | formatCrowdType"
         v-on:click.native="sheetShwon1 = true"
-      )
-    .cell-wrapper
-      form-cell(
+        )
+      .cell-wrapper
+        form-cell(
+        title="商品名称"
+        v-model="gdName"
+        )
+        form-cell(
+        title="商品编码"
+        v-model="gdCode"
+        )
+        file-uploader(
+        title="商品图片"
+        v-on:gdUrl="gdUrl = arguments[0]"
+        v-on:gdId="gdId = arguments[0]"
+        )
+      .cell-wrapper
+        form-cell(
         title="折扣力度"
         unit="折"
         maxlength="3"
         v-model="discount"
-      )
-      mt-cell(
+        )
+        mt-cell(
         is-link
         title="券有效期"
         v-bind:value="coupouExpiredView"
-        v-on:click.native="$router.push({name: 'discount1.coupouExpired'})"
-      )
-    div.btn-list
-      button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount1.other'})")
-        span  其他设置
-      button.btn.btn-green.btn-submit(v-on:click="submit")
-        span 提交
-    mt-datetime-picker(
+        v-on:click.native="$router.push({name: 'discount3.coupouExpired'})"
+        )
+      div.btn-list
+        button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount3.other'})")
+          span  其他设置
+        button.btn.btn-green.btn-submit(v-on:click="submit")
+          span 提交
+      mt-datetime-picker(
       ref="picker-start"
       type="date"
       year-format="{value} 年"
@@ -71,8 +84,8 @@ div
       date-format="{value} 日"
       v-bind:value="pickerStartValue"
       v-on:confirm="pickerStartValue = arguments[0]"
-    )
-    mt-datetime-picker(
+      )
+      mt-datetime-picker(
       ref="picker-end"
       type="date"
       year-format="{value} 年"
@@ -80,11 +93,11 @@ div
       date-format="{value} 日"
       v-bind:value="pickerEndValue"
       v-on:confirm="pickerEndValue = arguments[0]"
-    )
-    mt-actionsheet(
+      )
+      mt-actionsheet(
       :actions="peopleIsAllowed"
       v-model="sheetShwon1"
-    )
+      )
 </template>
 
 <script>
@@ -93,12 +106,12 @@ import FormCell from '@/components/FormCell.vue'
 import FileUploader from '@/components/FileUploader.vue'
 import { format } from 'date-fns'
 import { validateForm } from '@/services/utils'
-import { discount1Validation } from './validation'
+import { discount3Validation } from './validation'
 import { mapGetters, mapState } from 'vuex'
 import { createCampaign } from '@/apis/index'
 import { Toast } from 'mint-ui'
 export default {
-  name: 'discount1',
+  name: 'discount3',
   components: {
     FileUploader,
     TopHead,
@@ -106,9 +119,8 @@ export default {
   },
   data () {
     return {
-      clientId: '150759774805270',
-      logoUrl: '',
-      logoId: '',
+      gdName: '',
+      gdCode: '',
       coupouName: '',
       brandName: '',
       discount: '8.5',
@@ -145,12 +157,16 @@ export default {
     ...mapState('stores', [
       'shops'
     ]),
-    ...mapState('discount1Other', [
+    ...mapState('discount3Other', [
       'other'
+    ]),
+    ...mapState('fileUploader', [
+      'qiniuUrl',
+      'imgId'
     ]),
     requestParams () {
       let params = {
-        clientId: this.clientId,
+        clientId: this.clientId || '150759774805270',
         type: this.other.useway,
         name: `${this.coupouName}${format(new Date(), 'MMDD')}`,
         startTime: `${this.startDate} 00:00:00`,
@@ -176,8 +192,8 @@ export default {
               effectType: this.other.effectTime,
               endTime: `${this.expiredEnd} 23:59:59`,
               startTime: `${this.expiredStart} 00:00:00`,
-              logo: this.logoId,
-              logoQiniu: this.logoUrl,
+              logo: this.imgId,
+              logoQiniu: this.qiniuUrl,
               maxAmount: this.other.hightestLimit,
               name: this.coupouName,
               rate: (+this.discount * 0.1).toFixed(2),
@@ -212,7 +228,7 @@ export default {
       return params
     },
     nestedView () {
-      return this.$route.name !== 'discount1'
+      return this.$route.name !== 'discount3'
     },
     startDate () {
       return format(this.pickerStartValue, 'YYYY-MM-DD')
@@ -230,14 +246,14 @@ export default {
         pickerStartValue: this.pickerStartValue,
         pickerEndValue: this.pickerEndValue,
         brandName: this.brandName,
-        logo: this.logoId,
+        logo: this.imgId,
         crowdType: this.crowdType,
         discount: this.discount,
-        coupouExpired: this.coupouExpiredView.slice(0, -1),
+        coupouExpired: this.coupouExpired || this.coupouExpiredView,
         useInstructions: this.other.useInstructions
       }
-      console.log(`result: ${validateForm(formData, discount1Validation)}`)
-      if (validateForm(formData, discount1Validation)) return true
+      console.log(`result: ${validateForm(formData, discount3Validation)}`)
+      if (validateForm(formData, discount3Validation)) return true
       createCampaign(this.requestParams).then(res => {
         let data = res.data
         if (data.status === 0) {
@@ -256,7 +272,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .page-discount1 {
+  .page-discount3 {
     min-height: 100vh;
     background-color: $bgGray;
     padding-bottom: 40px;
