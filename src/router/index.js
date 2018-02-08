@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store/index'
 
 Vue.use(Router)
 const Home = r => require.ensure([], () => r(require('@/views/home/Home')), 'Home')
@@ -37,6 +38,10 @@ const routes = [
     path: '/discount1',
     component: discount1,
     meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
     children: [
       {
         name: 'discount1.other',
@@ -85,6 +90,10 @@ const routes = [
     path: '/discount2',
     component: discount2,
     meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
     children: [
       {
         name: 'discount2.other',

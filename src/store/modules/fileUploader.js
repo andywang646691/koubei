@@ -28,6 +28,9 @@ const mutations = {
   },
   [types.SET_IMG_ID] (state, { imgId }) {
     state.imgId = imgId
+  },
+  [types.RESET_ALL_STATE] (state) {
+    Object.assign(state, initState())
   }
 }
 

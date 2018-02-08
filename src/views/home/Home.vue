@@ -9,6 +9,7 @@
 import Coupous from './children/Coupons.vue'
 import Activity from './children/Activity.vue'
 import TopHead from '@/components/TopHead.vue'
+
 export default {
   name: 'home',
   components: {

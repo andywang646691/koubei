@@ -178,6 +178,7 @@ export default {
               worthValue: this.worthValue,
               brandName: this.brandName,
               donateFlag: this.other.donateFlag,
+              delayInfo: {type: 'BYDAY', value: '1440'},
               effectType: this.other.effectTime,
               endTime: `${this.expiredEnd} 23:59:59`,
               startTime: `${this.expiredStart} 00:00:00`,
