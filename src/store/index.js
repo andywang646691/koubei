@@ -7,6 +7,7 @@ import useInstructions from './modules/useInstructions'
 import stores from './modules/stores'
 import discount1Other from './modules/discount1Other'
 import fileUploader from './modules/fileUploader'
+import discount2Other from './modules/discount2Other'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     useInstructions,
     stores,
     discount1Other,
-    fileUploader
+    fileUploader,
+    discount2Other
   }
 })

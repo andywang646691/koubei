@@ -27,6 +27,10 @@ function validateFunc ({formData, param, ruleType, associateParam}) {
         return !(num >= 1.1 && num <= 9.9)
       }
       return true
+    },
+    'amt-compare': function (value) {
+      let comparedValue = formData[associateParam]
+      return value - comparedValue < 0
     }
   }
   return hasErrorFuncs[ruleType](value)
