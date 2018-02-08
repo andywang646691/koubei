@@ -5,9 +5,11 @@ import useTimeItem from './modules/useTimeItem'
 import useTime from './modules/useTime'
 import useInstructions from './modules/useInstructions'
 import stores from './modules/stores'
-import discount1Other from './modules/discount1Other'
 import fileUploader from './modules/fileUploader'
+import discount1Other from './modules/discount1Other'
 import discount2Other from './modules/discount2Other'
+import discount3Other from './modules/discount3Other'
+import discount4Other from './modules/discount4Other'
 import * as types from '@/store/mutation-types'
 Vue.use(Vuex)
 
@@ -27,7 +29,9 @@ export default new Vuex.Store({
     stores,
     discount1Other,
     fileUploader,
-    discount2Other
+    discount2Other,
+    discount3Other,
+    discount4Other
   },
   actions
 })

@@ -1,9 +1,9 @@
 <template lang="pug">
   div
     router-view.nested-view(v-show="nestedView")
-    .page-discount3(v-show="!nestedView")
+    .page-discount4(v-show="!nestedView")
       top-head
-      .page-title  单品折扣券
+      .page-title  单品代金券
       .cell-wrapper
         form-cell(
         title="券名称"
@@ -13,7 +13,7 @@
         is-link
         title="适用门店"
         value="请选择"
-        v-on:click.native="$router.push({name: 'discount3.stores'})"
+        v-on:click.native="$router.push({name: 'discount4.stores'})"
         )
       .cell-wrapper
         mt-cell(
@@ -71,27 +71,25 @@
         )
       .cell-wrapper
         form-cell(
-        title="优惠商品最低购买件数"
-        v-model="gdDiscountLowestAmt"
+        title="优惠金额"
+        unit="元"
+        type="tel"
+        v-model="worthValue"
         )
         form-cell(
-        title="优惠商品最高优惠件数"
-        v-model="gdDiscountHighestAmt"
-        )
-        form-cell(
-        title="折扣力度"
-        unit="折"
-        maxlength="3"
-        v-model="discount"
+        title="最低消费"
+        unit="元"
+        type="tel"
+        v-model="lowestLimit"
         )
         mt-cell(
         is-link
         title="券有效期"
         v-bind:value="coupouExpiredView"
-        v-on:click.native="$router.push({name: 'discount3.coupouExpired'})"
+        v-on:click.native="$router.push({name: 'discount4.coupouExpired'})"
         )
       div.btn-list
-        button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount3.other'})")
+        button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'discount4.other'})")
           span  其他设置
         button.btn.btn-green.btn-submit(v-on:click="submit")
           span 提交
@@ -125,12 +123,12 @@ import FormCell from '@/components/FormCell.vue'
 import FileUploader from '@/components/FileUploader.vue'
 import { format } from 'date-fns'
 import { validateForm } from '@/services/utils'
-import { discount3Validation } from './validation'
+import { discount4Validation } from './validation'
 import { mapGetters, mapState } from 'vuex'
 import { createCampaign } from '@/apis/index'
 import { Toast } from 'mint-ui'
 export default {
-  name: 'discount3',
+  name: 'discount4',
   components: {
     FileUploader,
     TopHead,
@@ -142,15 +140,14 @@ export default {
       gdName: '',
       gdCode: '',
       gdDetail: '',
-      logoUrl: '',
-      logoId: '',
       gdUrl: '',
       gdId: '',
-      gdDiscountLowestAmt: '',
-      gdDiscountHighestAmt: '',
+      logoUrl: '',
+      logoId: '',
       coupouName: '',
       brandName: '',
-      discount: '8.5',
+      worthValue: '',
+      lowestLimit: '',
       pickerStartValue: new Date(),
       pickerEndValue: new Date(),
       crowdType: '',
@@ -184,7 +181,7 @@ export default {
     ...mapState('stores', [
       'shops'
     ]),
-    ...mapState('discount3Other', [
+    ...mapState('discount4Other', [
       'other'
     ]),
     requestParams () {
@@ -200,7 +197,7 @@ export default {
           userWinFrequency: this.other.userWinFrequency ? `D||${this.other.userWinFrequency}` : '',
           crowdRestriction: this.crowdType,
           suitShops: this.shops,
-          minCost: this.other.lowestLimit
+          minCost: this.lowestLimit
         },
         budgetInfo: {
           budgetTotal: this.other.distriAmount,
@@ -209,6 +206,7 @@ export default {
         promoTools: [
           {
             voucher: {
+              worthValue: this.worthValue,
               brandName: this.brandName,
               donateFlag: this.other.donateFlag,
               delayInfo: {type: 'BYDAY', value: '1440'},
@@ -228,18 +226,18 @@ export default {
               name: this.coupouName,
               rate: (+this.discount * 0.1).toFixed(2),
               relativeTime: this.coupouExpired,
-              type: 'RATE',
+              type: 'MONEY',
               useInstructions: this.other.useInstructions,
               useRule: {
                 limitRule: this.other.payChannelLimit,
-                minConsume: this.other.lowestLimit,
+                minConsume: this.lowestLimit,
                 suitShops: this.shops,
                 useTime: this.other.useTime
               },
               validateType: this.expiredType
             },
             sendRule: {
-              minCost: this.other.lowestLimit
+              minCost: this.lowestLimit
             }
           }
         ],
@@ -258,7 +256,7 @@ export default {
       return params
     },
     nestedView () {
-      return this.$route.name !== 'discount3'
+      return this.$route.name !== 'discount4'
     },
     startDate () {
       return format(this.pickerStartValue, 'YYYY-MM-DD')
@@ -278,18 +276,17 @@ export default {
         brandName: this.brandName,
         logo: this.logoId,
         crowdType: this.crowdType,
-        discount: this.discount,
+        worthValue: this.worthValue,
+        lowestLimit: this.lowestLimit,
         coupouExpired: this.coupouExpiredView.slice(0, -1),
         useInstructions: this.other.useInstructions,
         gdName: this.gdName,
         gdCode: this.gdCode,
         gdDetail: this.gdDetail,
-        gdId: this.gdId,
-        gdDiscountLowestAmt: this.gdDiscountLowestAmt,
-        gdDiscountHighestAmt: this.gdDiscountHighestAmt
+        gdId: this.gdId
       }
-      console.log(`result: ${validateForm(formData, discount3Validation)}`)
-      if (validateForm(formData, discount3Validation)) return true
+      console.log(`result: ${validateForm(formData, discount4Validation)}`)
+      if (validateForm(formData, discount4Validation)) return true
       createCampaign(this.requestParams).then(res => {
         let data = res.data
         if (data.status === 0) {
@@ -308,7 +305,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .page-discount3 {
+  .page-discount4 {
     min-height: 100vh;
     background-color: $bgGray;
     padding-bottom: 40px;

@@ -15,6 +15,12 @@ const Stores = r => require.ensure([], () => r(require('@/components/Stores')), 
 const discount2 = r => require.ensure([], () => r(require('@/views/coupous/discount2')), 'discount2')
 const discount2Other = r => require.ensure([], () => r(require('@/views/coupous/discount2Other')), 'discount2Other')
 
+const discount3 = r => require.ensure([], () => r(require('@/views/coupous/discount3')), 'discount3')
+const discount3Other = r => require.ensure([], () => r(require('@/views/coupous/discount3Other')), 'discount3Other')
+
+const discount4 = r => require.ensure([], () => r(require('@/views/coupous/discount4')), 'discount4')
+const discount4Other = r => require.ensure([], () => r(require('@/views/coupous/discount4Other')), 'discount4Other')
+
 function showRouteTitle (title) {
   document.title = title
   window.ap.setNavigationBar({
@@ -133,6 +139,110 @@ const routes = [
       },
       {
         name: 'discount2.stores',
+        path: 'stores',
+        component: Stores,
+        meta: { title: '适用门店' }
+      }
+    ]
+  },
+  {
+    name: 'discount3',
+    path: '/discount3',
+    component: discount3,
+    meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
+    children: [
+      {
+        name: 'discount3.other',
+        path: 'other',
+        component: discount3Other,
+        meta: { title: '其他设置' },
+        children: [
+          {
+            name: 'discount3.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'discount3.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'discount3.useInstructions',
+            path: 'UseInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'discount3.coupouExpired',
+        path: 'coupouExpired',
+        component: CoupouExpired,
+        meta: { title: '券有效期' }
+      },
+      {
+        name: 'discount3.stores',
+        path: 'stores',
+        component: Stores,
+        meta: { title: '适用门店' }
+      }
+    ]
+  },
+  {
+    name: 'discount4',
+    path: '/discount4',
+    component: discount4,
+    meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
+    children: [
+      {
+        name: 'discount4.other',
+        path: 'other',
+        component: discount4Other,
+        meta: { title: '其他设置' },
+        children: [
+          {
+            name: 'discount4.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'discount4.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'discount4.useInstructions',
+            path: 'UseInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'discount4.coupouExpired',
+        path: 'coupouExpired',
+        component: CoupouExpired,
+        meta: { title: '券有效期' }
+      },
+      {
+        name: 'discount4.stores',
         path: 'stores',
         component: Stores,
         meta: { title: '适用门店' }

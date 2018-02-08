@@ -10,7 +10,6 @@ function initState () {
       effectTime: 'IMMEDIATELY',
       payChannelLimit: 'USE_NO_LIMIT',
       useTime: null,
-      lowestLimit: '',
       donateFlag: '0',
       userWinCount: '',
       userWinFrequency: '',
@@ -24,14 +23,14 @@ const state = initState()
 const getters = {}
 // actions
 const actions = {
-  setDiscount3Other ({ commit }, data) {
-    commit(types.SET_DISCOUNT3_OTHER, { data })
+  setDiscount4Other ({ commit }, data) {
+    commit(types.SET_DISCOUNT4_OTHER, { data })
   }
 }
 
 // mutations
 const mutations = {
-  [types.SET_DISCOUNT3_OTHER] (state, { data }) {
+  [types.SET_DISCOUNT4_OTHER] (state, { data }) {
     state.other = data
   },
   [types.RESET_ALL_STATE] (state) {

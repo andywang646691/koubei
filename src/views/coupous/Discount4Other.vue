@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     router-view.nested-view(v-show="nestedView")
-    .discount3-other.fill-view.bg-gray(v-show="!nestedView")
+    .discount4-other.fill-view.bg-gray(v-show="!nestedView")
       .cell-wrapper.top-item
         mt-cell(
         is-link
@@ -39,13 +39,7 @@
         is-link
         title="使用时段"
         value="设置"
-        v-on:click.native="$router.push({name: 'discount3.useTime'})"
-        )
-        form-cell(
-        title="最低消费"
-        v-model="lowestLimit"
-        type="tel"
-        placeholder="不填无限制"
+        v-on:click.native="$router.push({name: 'discount4.useTime'})"
         )
         mt-cell(
         is-link
@@ -72,7 +66,7 @@
         is-link
         title="使用说明"
         value="设置"
-        v-on:click.native="$router.push({name: 'discount3.useInstructions'})"
+        v-on:click.native="$router.push({name: 'discount4.useInstructions'})"
         )
       button.btn.btn-reverse.btn-other(v-on:click="confirm")
         span  确定
@@ -102,7 +96,7 @@
 import FormCell from '@/components/FormCell.vue'
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'discount3-other',
+  name: 'discount4-other',
   data () {
     return {
       userWinCount: '',
@@ -113,6 +107,7 @@ export default {
         {name: '否', method: () => { this.donateFlag = '0' }}
       ],
       lowestLimit: '',
+      hightestLimit: '',
       payChannelLimit: 'USE_NO_LIMIT',
       payChannelLimitOptions: [
         {name: '不限制', method: () => { this.payChannelLimit = 'USE_NO_LIMIT' }},
@@ -150,15 +145,15 @@ export default {
       'useInstructions'
     ]),
     nestedView () {
-      return this.$route.name !== 'discount3.other'
+      return this.$route.name !== 'discount4.other'
     }
   },
   components: {
     FormCell
   },
   methods: {
-    ...mapActions('discount3Other', [
-      'setDiscount3Other'
+    ...mapActions('discount4Other', [
+      'setDiscount4Other'
     ]),
     confirm () {
       let data = JSON.parse(JSON.stringify({
@@ -168,18 +163,17 @@ export default {
         effectTime: this.effectTime,
         payChannelLimit: this.payChannelLimit,
         useTime: this.useTime,
-        lowestLimit: this.lowestLimit,
         donateFlag: this.donateFlag,
         userWinCount: this.userWinCount,
         userWinFrequency: this.userWinFrequency,
         useInstructions: this.useInstructions
       }))
-      this.setDiscount3Other(data)
-      this.$router.push({name: 'discount3'})
+      this.setDiscount4Other(data)
+      this.$router.push({name: 'discount4'})
     }
   },
   created () {
-    let data = JSON.parse(JSON.stringify(this.$store.state.discount3Other.other))
+    let data = JSON.parse(JSON.stringify(this.$store.state.discount4Other.other))
     delete data.useTime
     delete data.useInstructions
     Object.assign(this.$data, data)
