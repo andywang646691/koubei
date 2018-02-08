@@ -12,7 +12,7 @@ div
           br
           span  {{ item.text }}
     .btn-list
-      button.btn.btn-reverse.btn-other(v-on:click="$router.push({name: 'useTime.item'})")
+      button.btn.btn-reverse.btn-other(v-on:click="$router.push(parentRoute.path + '/useTime/item')")
         span 添加
       button.btn.btn-reverse.btn-other(v-on:click="confirm")
         span 确定

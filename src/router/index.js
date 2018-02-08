@@ -26,7 +26,8 @@ function showRouteTitle (title) {
 const routes = [
   {
     path: '',
-    component: Home
+    component: Home,
+    meta: { title: '灵犀数字营销' }
   },
   {
     path: '/',
@@ -39,6 +40,7 @@ const routes = [
     component: discount1,
     meta: { title: '灵犀数字营销' },
     beforeEnter: (to, from, next) => {
+      console.log('before enter')
       store.dispatch('resetAllState')
       next()
     },
@@ -108,7 +110,7 @@ const routes = [
             meta: { title: '使用时段' },
             children: [
               {
-                name: 'discount2.item',
+                name: 'discount2.useTime.item',
                 path: 'item',
                 component: UseTimeItem,
                 meta: { title: '添加使用时段' }
@@ -139,7 +141,8 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/'
+    redirect: '/',
+    meta: { title: '灵犀数字营销' }
   }
 ]
 

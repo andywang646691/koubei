@@ -97,8 +97,13 @@ export default {
       } else {
         this.setExpiredStartAndEnd({expiredStart: this.expiredStart, expiredEnd: this.expiredEnd})
       }
-      this.$router.push({ name: 'discount1' })
+      this.$router.push(this.parentRoute.path)
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.parentRoute = from
+    })
   }
 }
 </script>

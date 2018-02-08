@@ -39,7 +39,7 @@
         is-link
         title="使用时段"
         value="设置"
-        v-on:click.native="$router.push({name: 'other.useTime'})"
+        v-on:click.native="$router.push({name: 'discount2.useTime'})"
         )
         mt-cell(
         is-link
@@ -51,12 +51,14 @@
         title="每个用户总共参与次数"
         v-model="userWinCount"
         placeholder="不填无限制"
+        type="tel"
         unit="次"
         )
         form-cell(
         title="每个用户每天参与次数"
         v-model="userWinFrequency"
         placeholder="不填无限制"
+        type="tel"
         unit="次"
         )
       .cell-wrapper
@@ -64,7 +66,7 @@
         is-link
         title="使用说明"
         value="设置"
-        v-on:click.native="$router.push({name: 'other.useInstructions'})"
+        v-on:click.native="$router.push({name: 'discount2.useInstructions'})"
         )
       button.btn.btn-reverse.btn-other(v-on:click="confirm")
         span  确定
