@@ -21,6 +21,9 @@ const discount3Other = r => require.ensure([], () => r(require('@/views/coupous/
 const discount4 = r => require.ensure([], () => r(require('@/views/coupous/discount4')), 'discount4')
 const discount4Other = r => require.ensure([], () => r(require('@/views/coupous/discount4Other')), 'discount4Other')
 
+const activity1 = r => require.ensure([], () => r(require('@/views/activity/activity1')), 'activity1')
+const activity1Other = r => require.ensure([], () => r(require('@/views/activity/activity1Other')), 'activity1Other')
+
 function showRouteTitle (title) {
   document.title = title
   window.ap.setNavigationBar({
@@ -243,6 +246,58 @@ const routes = [
       },
       {
         name: 'discount4.stores',
+        path: 'stores',
+        component: Stores,
+        meta: { title: '适用门店' }
+      }
+    ]
+  },
+  {
+    name: 'activity1',
+    path: '/activity1',
+    component: activity1,
+    meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
+    children: [
+      {
+        name: 'activity1.other',
+        path: 'other',
+        component: activity1Other,
+        meta: { title: '其他设置' },
+        children: [
+          {
+            name: 'activity1.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'activity1.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'activity1.useInstructions',
+            path: 'UseInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'activity1.coupouExpired',
+        path: 'coupouExpired',
+        component: CoupouExpired,
+        meta: { title: '券有效期' }
+      },
+      {
+        name: 'activity1.stores',
         path: 'stores',
         component: Stores,
         meta: { title: '适用门店' }

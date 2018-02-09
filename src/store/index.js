@@ -10,6 +10,7 @@ import discount1Other from './modules/discount1Other'
 import discount2Other from './modules/discount2Other'
 import discount3Other from './modules/discount3Other'
 import discount4Other from './modules/discount4Other'
+import activity1Other from './modules/activity1Other'
 import * as types from '@/store/mutation-types'
 Vue.use(Vuex)
 
@@ -31,7 +32,8 @@ export default new Vuex.Store({
     fileUploader,
     discount2Other,
     discount3Other,
-    discount4Other
+    discount4Other,
+    activity1Other
   },
   actions
 })
