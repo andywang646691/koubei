@@ -24,6 +24,9 @@ const discount4Other = r => require.ensure([], () => r(require('@/views/coupous/
 const activity1 = r => require.ensure([], () => r(require('@/views/activity/activity1')), 'activity1')
 const activity1Other = r => require.ensure([], () => r(require('@/views/activity/activity1Other')), 'activity1Other')
 
+const activity2 = r => require.ensure([], () => r(require('@/views/activity/activity2')), 'activity2')
+const CoupouGlobalDiscount = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouGloalDiscount.vue')), 'CoupouGlobalDiscount')
+
 function showRouteTitle (title) {
   document.title = title
   window.ap.setNavigationBar({
@@ -298,6 +301,52 @@ const routes = [
       },
       {
         name: 'activity1.stores',
+        path: 'stores',
+        component: Stores,
+        meta: { title: '适用门店' }
+      }
+    ]
+  },
+  {
+    name: 'activity2',
+    path: '/activity2',
+    component: activity2,
+    meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
+    children: [
+      {
+        name: 'coupou-globalDiscount',
+        path: 'coupou-globalDiscount/:index',
+        component: CoupouGlobalDiscount,
+        meta: { title: '全场折扣券' },
+        children: [
+          {
+            name: 'coupou-globalDiscount.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'coupou-globalDiscount.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'coupou-globalDiscount.useInstructions',
+            path: 'useInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'activity2.stores',
         path: 'stores',
         component: Stores,
         meta: { title: '适用门店' }

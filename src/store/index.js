@@ -11,6 +11,7 @@ import discount2Other from './modules/discount2Other'
 import discount3Other from './modules/discount3Other'
 import discount4Other from './modules/discount4Other'
 import activity1Other from './modules/activity1Other'
+import awards from './modules/awards'
 import * as types from '@/store/mutation-types'
 Vue.use(Vuex)
 
@@ -33,7 +34,8 @@ export default new Vuex.Store({
     discount2Other,
     discount3Other,
     discount4Other,
-    activity1Other
+    activity1Other,
+    awards
   },
   actions
 })
