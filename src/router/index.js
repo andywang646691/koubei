@@ -27,6 +27,7 @@ const activity1Other = r => require.ensure([], () => r(require('@/views/activity
 const activity2 = r => require.ensure([], () => r(require('@/views/activity/activity2')), 'activity2')
 const CoupouGlobalDiscount = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouGloalDiscount.vue')), 'CoupouGlobalDiscount')
 const CoupouGlobalMoney = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouGlobalMoney.vue')), 'CoupouGlobalMoney')
+const CoupouSignalDiscount = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouSignalDiscount.vue')), 'CoupouSignalDiscount')
 
 function showRouteTitle (title) {
   document.title = title
@@ -368,6 +369,34 @@ const routes = [
           },
           {
             name: 'coupou-globalMoney.useInstructions',
+            path: 'useInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'coupou-signalDiscount',
+        path: 'coupou-signalDiscount/:index',
+        component: CoupouSignalDiscount,
+        meta: { title: '单品折扣券' },
+        children: [
+          {
+            name: 'coupou-signalDiscount.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'coupou-signalDiscount.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'coupou-signalDiscount.useInstructions',
             path: 'useInstructions',
             component: UseInstructions,
             meta: { title: '使用说明' }

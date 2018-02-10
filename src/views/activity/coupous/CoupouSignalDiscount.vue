@@ -1,8 +1,38 @@
 <template lang="pug">
   div
     router-view.nested-view(v-show="nestedView")
-    .coupou-globalMoney.fill-view.bg-gray(v-show="!nestedView")
+    .coupou-signalDiscount.fill-view.bg-gray(v-show="!nestedView")
       .cell-wrapper
+        form-cell(
+        title="商品名称"
+        v-model="gdName"
+        )
+        form-cell(
+        title="商品编码"
+        v-model="gdCode"
+        )
+        file-uploader(
+        title="商品图片"
+        v-bind:clientId="clientId"
+        flag="gd"
+        v-on:gdUrl="gdUrl = arguments[0]"
+        v-on:gdId="gdId = arguments[0]"
+        )
+        mt-field(
+        type="textarea"
+        rows="3"
+        v-model="gdDetail"
+        label="商品详情"
+        placeholder="120字以内"
+        v-bind:attr="{maxlength: 120}"
+        )
+      .cell-wrapper
+        form-cell(
+        title="折扣力度"
+        unit="折"
+        maxlength="3"
+        v-model="discount"
+        )
         mt-cell(
         is-link
         title="领取生效"
@@ -26,7 +56,7 @@
         is-link
         title="使用时段"
         value="设置"
-        v-on:click.native="$router.push({name: 'coupou-globalMoney.useTime'})"
+        v-on:click.native="$router.push({name: 'coupou-signalDiscount.useTime'})"
         )
         form-cell(
         title="最低消费"
@@ -35,17 +65,19 @@
         placeholder="不填无限制"
         )
         form-cell(
-        title="优惠金额"
-        type="tel"
-        v-model="worthValue"
-        placeholder="不填默认为0.01"
+        title="优惠商品最低购买件数"
+        v-model="gdDiscountLowestAmt"
+        )
+        form-cell(
+        title="优惠商品最高优惠件数"
+        v-model="gdDiscountHighestAmt"
         )
       .cell-wrapper
         mt-cell(
         is-link
         title="使用说明"
         value="设置"
-        v-on:click.native="$router.push({name: 'coupou-globalMoney.useInstructions'})"
+        v-on:click.native="$router.push({name: 'coupou-signalDiscount.useInstructions'})"
         )
         form-cell(
         title="发券数量"
@@ -72,12 +104,20 @@
 
 <script>
 import FormCell from '@/components/FormCell.vue'
+import FileUploader from '@/components/FileUploader.vue'
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'coupou-globalMoney',
+  name: 'coupou-signalDiscount',
   data () {
     return {
-      worthValue: '',
+      clientId: '150759774805270',
+      gdName: '',
+      gdCode: '',
+      gdDetail: '',
+      gdUrl: '',
+      gdId: '',
+      gdDiscountLowestAmt: '',
+      gdDiscountHighestAmt: '',
       sendNum: '1',
       discount: '8.5',
       payChannelLimit: 'USE_NO_LIMIT',
@@ -97,7 +137,6 @@ export default {
         {name: '否', method: () => { this.donateFlag = '0' }}
       ],
       lowestLimit: '',
-      hightestLimit: '',
       sheetShwon1: false,
       sheetShwon2: false,
       sheetShwon3: false
@@ -111,11 +150,12 @@ export default {
       'useInstructions'
     ]),
     nestedView () {
-      return this.$route.name !== 'coupou-globalMoney'
+      return this.$route.name !== 'coupou-signalDiscount'
     }
   },
   components: {
-    FormCell
+    FormCell,
+    FileUploader
   },
   methods: {
     ...mapActions('awards', [
@@ -123,25 +163,40 @@ export default {
     ]),
     confirm () {
       let voucherItem = {
-        worthValue: this.worthValue || '1',
+        discount: this.discount,
         effectTime: this.effectTime,
         payChannelLimit: this.payChannelLimit,
-        hightestLimit: this.hightestLimit,
         lowestLimit: this.lowestLimit,
         donateFlag: this.donateFlag,
         sendNum: this.sendNum,
         useTime: this.useTime,
-        useInstructions: this.useInstructions
+        useInstructions: this.useInstructions,
+        gdName: this.gdName,
+        gdCode: this.gdCode,
+        gdDetail: this.gdDetail,
+        gdUrl: this.gdUrl,
+        gdId: this.gdId,
+        gdDiscountLowestAmt: this.gdDiscountLowestAmt,
+        gdDiscountHighestAmt: this.gdDiscountHighestAmt
       }
       let voucherObj = JSON.parse(JSON.stringify({
         voucher: {
-          type: 'MONEY',
-          worthValue: this.worthValue || '0.01',
+          rate: (+this.discount * 0.1).toFixed(2),
+          type: 'RATE',
           delayInfo: {type: 'BYDAY', value: '1440'},
           effectType: this.effectTime,
           maxAmount: this.hightestLimit,
           donateFlag: this.donateFlag,
           useInstructions: this.useInstructions,
+          voucherImg: this.gdId,
+          voucherImgQiniu: this.gdUrl,
+          itemInfo: {
+            itemIds: [this.gdCode],
+            itemName: this.gdName,
+            itemText: this.gdDetail,
+            maxDiscountNum: this.gdDiscountHighestAmt,
+            minConsumeNum: this.gdDiscountLowestAmt
+          },
           useRule: {
             limitRule: this.payChannelLimit,
             minConsume: this.lowestLimit,
@@ -153,7 +208,7 @@ export default {
           sendNum: this.sendNum
         }
       }))
-      this.setPromoToolsItem({item: { name: 'coupou-globalMoney', voucherObj }, index: this.$route.params.index, voucherItem})
+      this.setPromoToolsItem({item: { name: 'coupou-signalDiscount', voucherObj }, index: this.$route.params.index, voucherItem})
       this.$router.push({name: 'activity2'})
     }
   },
