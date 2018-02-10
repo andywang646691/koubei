@@ -195,6 +195,22 @@ export default {
     ...mapState('awards', [
       'promoTools'
     ]),
+    realPromoTools () {
+      return this.promoTools.map(promoToolsItem => {
+        let voucher = promoToolsItem.voucherObj.voucher || {}
+        if (voucher.useRule) voucher.useRule.suitShops = this.shops
+        Object.assign(voucher, {
+          brandName: this.brandName,
+          endTime: `${this.endDate} 23:59:59`,
+          startTime: `${this.startDate} 00:00:00`,
+          logo: this.logoId,
+          logoQiniu: this.logoUrl,
+          name: this.activeName,
+          validateType: 'FIXED'
+        })
+        return promoToolsItem.voucherObj
+      })
+    },
     requestParams () {
       let params = {
         clientId: this.clientId,
@@ -214,23 +230,8 @@ export default {
           budgetTotal: this.budgetTotal,
           budgetType: 'QUANTITY'
         },
-        promoTools: this.promoTools
+        promoTools: this.realPromoTools
       }
-      let promoTools = JSON.parse(JSON.stringify(params.promoTools))
-      params.promoTools = promoTools.map(promoToolsItem => {
-        let voucher = promoToolsItem.voucherObj.voucher || {}
-        if (voucher.useRule) voucher.useRule.suitShops = this.shops
-        Object.assign(voucher, {
-          brandName: this.brandName,
-          endTime: `${this.endDate} 23:59:59`,
-          startTime: `${this.startDate} 00:00:00`,
-          logo: this.logoId,
-          logoQiniu: this.logoUrl,
-          name: this.activeName,
-          validateType: 'FIXED'
-        })
-        return promoToolsItem.voucherObj
-      })
       if (!this.budgetInfo) delete params.budgetInfo
       return params
     },
@@ -256,7 +257,8 @@ export default {
         brandName: this.brandName,
         logo: this.logoId,
         crowdType: this.crowdType,
-        budgetTotal: this.budgetTotal
+        budgetTotal: this.budgetTotal,
+        promoTools: this.realPromoTools
       }
       console.log(`result: ${validateForm(formData, activity2Validation)}`)
       if (validateForm(formData, activity2Validation)) return true

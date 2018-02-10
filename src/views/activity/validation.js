@@ -64,6 +64,10 @@ const activity2Validation = [
   {
     key: 'logo',
     rule: [{name: 'required', errMsg: '请上传券LOGO'}]
+  },
+  {
+    key: 'promoTools',
+    rule: [{name: 'promoTools', errMsg: '请填写奖品信息'}]
   }
 ]
 

@@ -1,4 +1,5 @@
 import is from 'is-type'
+// return true 代表未通过校验
 function validateFunc ({formData, param, ruleType, associateParam}) {
   let value = formData[param]
   let hasErrorFuncs = {
@@ -31,6 +32,12 @@ function validateFunc ({formData, param, ruleType, associateParam}) {
     'amt-compare': function (value) {
       let comparedValue = formData[associateParam]
       return value - comparedValue < 0
+    },
+    'promoTools': function (value) {
+      if (is.array(value) && value.length > 0) {
+        return !value.every(obj => is.object(obj) && obj.voucher)
+      }
+      return true
     }
   }
   return hasErrorFuncs[ruleType](value)
