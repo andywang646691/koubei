@@ -222,7 +222,9 @@ export default {
               itemInfo: {
                 itemIds: [this.gdCode],
                 itemName: this.gdName,
-                itemText: this.gdDetail
+                itemText: this.gdDetail,
+                maxDiscountNum: this.gdDiscountHighestAmt,
+                minConsumeNum: this.gdDiscountLowestAmt
               },
               maxAmount: this.other.hightestLimit,
               name: this.coupouName,

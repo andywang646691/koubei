@@ -24,6 +24,12 @@ const discount4Other = r => require.ensure([], () => r(require('@/views/coupous/
 const activity1 = r => require.ensure([], () => r(require('@/views/activity/activity1')), 'activity1')
 const activity1Other = r => require.ensure([], () => r(require('@/views/activity/activity1Other')), 'activity1Other')
 
+const activity2 = r => require.ensure([], () => r(require('@/views/activity/activity2')), 'activity2')
+const CoupouGlobalDiscount = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouGloalDiscount.vue')), 'CoupouGlobalDiscount')
+const CoupouGlobalMoney = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouGlobalMoney.vue')), 'CoupouGlobalMoney')
+const CoupouSignalDiscount = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouSignalDiscount.vue')), 'CoupouSignalDiscount')
+const CoupouSignalMoney = r => require.ensure([], () => r(require('@/views/activity/coupous/CoupouSignalMoney.vue')), 'CoupouSignalMoney')
+
 function showRouteTitle (title) {
   document.title = title
   window.ap.setNavigationBar({
@@ -298,6 +304,136 @@ const routes = [
       },
       {
         name: 'activity1.stores',
+        path: 'stores',
+        component: Stores,
+        meta: { title: '适用门店' }
+      }
+    ]
+  },
+  {
+    name: 'activity2',
+    path: '/activity2',
+    component: activity2,
+    meta: { title: '灵犀数字营销' },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('resetAllState')
+      next()
+    },
+    children: [
+      {
+        name: 'coupou-globalDiscount',
+        path: 'coupou-globalDiscount/:index',
+        component: CoupouGlobalDiscount,
+        meta: { title: '全场折扣券' },
+        children: [
+          {
+            name: 'coupou-globalDiscount.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'coupou-globalDiscount.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'coupou-globalDiscount.useInstructions',
+            path: 'useInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'coupou-globalMoney',
+        path: 'coupou-globalMoney/:index',
+        component: CoupouGlobalMoney,
+        meta: { title: '全场代金券' },
+        children: [
+          {
+            name: 'coupou-globalMoney.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'coupou-globalMoney.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'coupou-globalMoney.useInstructions',
+            path: 'useInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'coupou-signalDiscount',
+        path: 'coupou-signalDiscount/:index',
+        component: CoupouSignalDiscount,
+        meta: { title: '单品折扣券' },
+        children: [
+          {
+            name: 'coupou-signalDiscount.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'coupou-signalDiscount.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'coupou-signalDiscount.useInstructions',
+            path: 'useInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'coupou-signalMoney',
+        path: 'coupou-signalMoney/:index',
+        component: CoupouSignalMoney,
+        meta: { title: '单品折扣券' },
+        children: [
+          {
+            name: 'coupou-signalMoney.useTime',
+            path: 'useTime',
+            component: UseTime,
+            meta: { title: '使用时段' },
+            children: [
+              {
+                name: 'coupou-signalMoney.useTime.item',
+                path: 'item',
+                component: UseTimeItem,
+                meta: { title: '添加使用时段' }
+              }
+            ]
+          },
+          {
+            name: 'coupou-signalMoney.useInstructions',
+            path: 'useInstructions',
+            component: UseInstructions,
+            meta: { title: '使用说明' }
+          }
+        ]
+      },
+      {
+        name: 'activity2.stores',
         path: 'stores',
         component: Stores,
         meta: { title: '适用门店' }

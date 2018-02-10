@@ -43,4 +43,32 @@ const activity1Validation = [
   }
 ]
 
-export { activity1Validation }
+const activity2Validation = [
+  {
+    key: 'activeName',
+    rule: [{name: 'required', errMsg: '请填写活动名称'}]
+  },
+  {
+    key: 'shops',
+    rule: [{name: 'required', errMsg: '请选择适用门店'}]
+  },
+  {
+    key: 'pickerStartValue',
+    associateKey: 'pickerEndValue',
+    rule: [{name: 'date-compare', errMsg: '活动开始时间不能大于活动结束时间'}]
+  },
+  {
+    key: 'brandName',
+    rule: [{name: 'required', errMsg: '请填写品牌名称'}]
+  },
+  {
+    key: 'logo',
+    rule: [{name: 'required', errMsg: '请上传券LOGO'}]
+  },
+  {
+    key: 'promoTools',
+    rule: [{name: 'promoTools', errMsg: '请填写奖品信息'}]
+  }
+]
+
+export { activity1Validation, activity2Validation }
