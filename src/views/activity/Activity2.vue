@@ -171,18 +171,22 @@ export default {
       awardsOption: [
         {
           name: '全场折扣券',
+          label: 'coupou-globalDiscount',
           method: () => this.promoTools.length < 4 ? this.setPromoToolsItem({item: {name: 'coupou-globalDiscount', voucherObj: {}}}) : Toast('最多添加四种不同的券')
         },
         {
           name: '全场代金券',
+          label: 'coupou-globalMoney',
           method: () => this.promoTools.length < 4 ? this.setPromoToolsItem({item: {name: 'coupou-globalMoney', voucherObj: {}}}) : Toast('最多添加四种不同的券')
         },
         {
           name: '单品折扣券',
+          label: 'coupou-signalDiscount',
           method: () => this.promoTools.length < 4 ? this.setPromoToolsItem({item: {name: 'coupou-signalDiscount', voucherObj: {}}}) : Toast('最多添加四种不同的券')
         },
         {
           name: '单品代金券',
+          label: 'coupou-signalMoney',
           method: () => this.promoTools.length < 4 ? this.setPromoToolsItem({item: {name: 'coupou-signalMoney', voucherObj: {}}}) : Toast('最多添加四种不同的券')
         }
       ]
@@ -195,6 +199,9 @@ export default {
     ...mapState('awards', [
       'promoTools'
     ]),
+    promoToolsChange () {
+      return this.promoTools.length
+    },
     realPromoTools () {
       return this.promoTools.map(promoToolsItem => {
         let voucher = promoToolsItem.voucherObj.voucher || {}

@@ -26,9 +26,9 @@ export default {
     awardNameFromat (code) {
       switch (code) {
         case 'coupou-globalDiscount': return '全场折扣券'
-        case 'coupou-globalMoney': return '全场现金券'
+        case 'coupou-globalMoney': return '全场代金券'
         case 'coupou-signalDiscount': return '单品折扣券'
-        case 'coupou-signalMoney': return '单品现金券'
+        case 'coupou-signalMoney': return '单品代金券'
       }
     }
   }

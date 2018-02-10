@@ -1,88 +1,83 @@
 <template lang="pug">
-div
-  router-view.nested-view(v-show="nestedView")
-  .coupou-globalDiscount.fill-view.bg-gray(v-show="!nestedView")
-    .cell-wrapper
-      form-cell(
-      title="折扣力度"
-      unit="折"
-      maxlength="3"
-      v-model="discount"
+  div
+    router-view.nested-view(v-show="nestedView")
+    .coupou-globalMoney.fill-view.bg-gray(v-show="!nestedView")
+      .cell-wrapper
+        mt-cell(
+        is-link
+        title="领取生效"
+        v-bind:value="effectTime | dictFormat"
+        v-on:click.native="sheetShwon1 = true"
+        )
+        mt-cell(
+        is-link
+        title="可以转赠"
+        v-bind:value="donateFlag | boolTransform"
+        v-on:click.native="sheetShwon2 = true"
+        )
+      .cell-wrapper
+        mt-cell(
+        is-link
+        title="支付渠道限制"
+        v-bind:value="payChannelLimit | dictFormat"
+        v-on:click.native="sheetShwon3 = true"
+        )
+        mt-cell(
+        is-link
+        title="使用时段"
+        value="设置"
+        v-on:click.native="$router.push({name: 'coupou-globalMoney.useTime'})"
+        )
+        form-cell(
+        title="最低消费"
+        v-model="lowestLimit"
+        type="tel"
+        placeholder="不填无限制"
+        )
+        form-cell(
+        title="优惠金额"
+        type="tel"
+        v-model="worthValue"
+        placeholder="不填默认为0"
+        )
+      .cell-wrapper
+        mt-cell(
+        is-link
+        title="使用说明"
+        value="设置"
+        v-on:click.native="$router.push({name: 'coupou-globalMoney.useInstructions'})"
+        )
+        form-cell(
+        title="发券数量"
+        type="tel"
+        v-model="sendNum"
+        placeholder="不填无限制"
+        )
+      .btn-list
+        button.btn.btn-reverse.btn-other(v-on:click="confirm")
+          span  确定
+      mt-actionsheet(
+      :actions="effectTimeOptions"
+      v-model="sheetShwon1"
       )
-      mt-cell(
-      is-link
-      title="领取生效"
-      v-bind:value="effectTime | dictFormat"
-      v-on:click.native="sheetShwon1 = true"
+      mt-actionsheet(
+      :actions="donateFlagOptions"
+      v-model="sheetShwon2"
       )
-      mt-cell(
-      is-link
-      title="可以转赠"
-      v-bind:value="donateFlag | boolTransform"
-      v-on:click.native="sheetShwon2 = true"
+      mt-actionsheet(
+      :actions="payChannelLimitOptions"
+      v-model="sheetShwon3"
       )
-    .cell-wrapper
-      mt-cell(
-      is-link
-      title="支付渠道限制"
-      v-bind:value="payChannelLimit | dictFormat"
-      v-on:click.native="sheetShwon3 = true"
-      )
-      mt-cell(
-      is-link
-      title="使用时段"
-      value="设置"
-      v-on:click.native="$router.push({name: 'coupou-globalDiscount.useTime'})"
-      )
-      form-cell(
-      title="最低消费"
-      v-model="lowestLimit"
-      type="tel"
-      placeholder="不填无限制"
-      )
-      form-cell(
-      title="最高优惠"
-      type="tel"
-      v-model="hightestLimit"
-      placeholder="不填无限制"
-      )
-    .cell-wrapper
-      mt-cell(
-      is-link
-      title="使用说明"
-      value="设置"
-      v-on:click.native="$router.push({name: 'coupou-globalDiscount.useInstructions'})"
-      )
-      form-cell(
-      title="发券数量"
-      type="tel"
-      v-model="sendNum"
-      placeholder="不填无限制"
-      )
-    .btn-list
-      button.btn.btn-reverse.btn-other(v-on:click="confirm")
-        span  确定
-    mt-actionsheet(
-    :actions="effectTimeOptions"
-    v-model="sheetShwon1"
-    )
-    mt-actionsheet(
-    :actions="donateFlagOptions"
-    v-model="sheetShwon2"
-    )
-    mt-actionsheet(
-    :actions="payChannelLimitOptions"
-    v-model="sheetShwon3"
-    )
 </template>
 
 <script>
 import FormCell from '@/components/FormCell.vue'
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'coupou-globalDiscount',
+  name: 'coupou-globalMoney',
   data () {
     return {
+      worthValue: '',
       sendNum: '1',
       discount: '8.5',
       payChannelLimit: 'USE_NO_LIMIT',
@@ -116,7 +111,7 @@ export default {
       'useInstructions'
     ]),
     nestedView () {
-      return this.$route.name !== 'coupou-globalDiscount'
+      return this.$route.name !== 'coupou-globalMoney'
     }
   },
   components: {
@@ -128,7 +123,7 @@ export default {
     ]),
     confirm () {
       let voucherItem = {
-        discount: this.discount,
+        worthValue: this.worthValue || '0',
         effectTime: this.effectTime,
         payChannelLimit: this.payChannelLimit,
         hightestLimit: this.hightestLimit,
@@ -140,8 +135,8 @@ export default {
       }
       let voucherObj = JSON.parse(JSON.stringify({
         voucher: {
-          rate: (+this.discount * 0.1).toFixed(2),
-          type: 'RATE',
+          type: 'MONEY',
+          worthValue: this.worthValue || '0',
           delayInfo: {type: 'BYDAY', value: '1440'},
           effectType: this.effectTime,
           maxAmount: this.hightestLimit,
@@ -158,7 +153,7 @@ export default {
           sendNum: this.sendNum
         }
       }))
-      this.setPromoToolsItem({item: { name: 'coupou-globalDiscount', voucherObj }, index: this.$route.params.index, voucherItem})
+      this.setPromoToolsItem({item: { name: 'coupou-globalMoney', voucherObj }, index: this.$route.params.index, voucherItem})
       this.$router.push({name: 'activity2'})
     }
   },
