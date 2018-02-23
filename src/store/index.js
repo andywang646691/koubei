@@ -15,9 +15,16 @@ import awards from './modules/awards'
 import * as types from '@/store/mutation-types'
 Vue.use(Vuex)
 
+function initState () {
+  return {
+    alpUserInfo: {}
+  }
+}
+const state = initState()
+
 const actions = {
-  resetAllState ({ commit, state }) {
-    let modulesName = Object.keys(state)
+  resetAllState ({ commit }) {
+    let modulesName = ['coupouExpired', 'useTimeItem', 'useTime', 'useInstructions', 'stores', 'discount1Other', 'fileUploader', 'discount2Other', 'discount3Other', 'discount4Other', 'activity1Other', 'awards']
     modulesName.forEach(name => commit(`${name}/${types.RESET_ALL_STATE}`))
   }
 }
@@ -37,5 +44,6 @@ export default new Vuex.Store({
     activity1Other,
     awards
   },
-  actions
+  actions,
+  state
 })

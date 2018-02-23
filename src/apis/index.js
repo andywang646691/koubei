@@ -17,12 +17,13 @@ function createCampaign (data) {
   })
 }
 
-function getAplAuth (authCode) {
+function getAplAuth (authCode, transFrom) {
   return axios({
     method: 'GET',
     url: aplAuth,
     params: {
-      authCode
+      authCode,
+      transFrom
     }
   })
 }

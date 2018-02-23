@@ -6,6 +6,7 @@ import { intercept } from '@/services/intercept'
 import { Cell, DatetimePicker, Field, Actionsheet, Radio, Checklist, CellSwipe } from 'mint-ui'
 import { formatCrowdType, boolTransform, dictFormat } from '@/services/filters.js'
 import store from '@/store/index'
+import { checkAuth } from '@/services/helpers'
 Vue.component(Cell.name, Cell)
 Vue.component(DatetimePicker.name, DatetimePicker)
 Vue.component(Field.name, Field)
@@ -18,8 +19,6 @@ Vue.filter('formatCrowdType', formatCrowdType)
 Vue.filter('boolTransform', boolTransform)
 Vue.filter('dictFormat', dictFormat)
 
-intercept({})
-
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function () {
     FastClick.attach(document.body)
@@ -30,9 +29,14 @@ Vue.config.productionTip = false
 Vue.prototype.$log = console.log
 
 /* eslint-disable no-new */
-new Vue({
+let vue = new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
+})
+
+checkAuth().then(alpUserInfo => {
+  intercept(alpUserInfo)
+  vue.$store.state.alpUserInfo = alpUserInfo
 })

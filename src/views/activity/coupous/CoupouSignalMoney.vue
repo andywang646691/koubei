@@ -102,7 +102,7 @@ export default {
   name: 'coupou-signalMoney',
   data () {
     return {
-      clientId: '150759774805270',
+      clientId: this.$store.state.alpUserInfo || '150759774805270',
       gdName: '',
       gdCode: '',
       gdDetail: '',
