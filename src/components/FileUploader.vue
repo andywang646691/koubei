@@ -18,7 +18,7 @@
 <script>
 import { Toast } from 'mint-ui'
 import axios from 'axios'
-import { uploadFile, getFileFromDom } from '@/services/utils.js'
+import { uploadFile, getFileFromDom } from '@/services/helpers.js'
 export default {
   name: 'file-uploader',
   components: {

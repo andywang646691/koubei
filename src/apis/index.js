@@ -1,6 +1,6 @@
 
 import axios from 'axios'
-import { allShopApi, alpCreateCampaign } from './apis'
+import { allShopApi, alpCreateCampaign, aplAuth } from './apis'
 
 function getShopInfo () {
   return axios({
@@ -17,4 +17,14 @@ function createCampaign (data) {
   })
 }
 
-export { getShopInfo, createCampaign }
+function getAplAuth (authCode) {
+  return axios({
+    method: 'GET',
+    url: aplAuth,
+    params: {
+      authCode
+    }
+  })
+}
+
+export { getShopInfo, createCampaign, getAplAuth }
