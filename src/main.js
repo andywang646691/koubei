@@ -7,6 +7,9 @@ import { Cell, DatetimePicker, Field, Actionsheet, Radio, Checklist, CellSwipe }
 import { formatCrowdType, boolTransform, dictFormat } from '@/services/filters.js'
 import store from '@/store/index'
 import { checkAuth } from '@/services/helpers'
+import { redirectToAppAuth, redirectToPublicAppAuth } from '@/apis/redirect'
+import { getQueryString } from './services/util'
+
 Vue.component(Cell.name, Cell)
 Vue.component(DatetimePicker.name, DatetimePicker)
 Vue.component(Field.name, Field)
@@ -28,15 +31,21 @@ if ('addEventListener' in document) {
 Vue.config.productionTip = false
 Vue.prototype.$log = console.log
 
-/* eslint-disable no-new */
-let vue = new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
-})
-
-checkAuth().then(alpUserInfo => {
-  intercept(alpUserInfo)
-  vue.$store.state.alpUserInfo = alpUserInfo
-})
+let authCode = getQueryString(location.href, 'auth_code')
+if (authCode) {
+  /* eslint-disable no-new */
+  let vue = new Vue({
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
+  })
+  checkAuth(authCode).then(alpUserInfo => {
+    intercept(alpUserInfo)
+    vue.$store.state.alpUserInfo = alpUserInfo
+  }).catch(() => {
+    location.href = redirectToAppAuth
+  })
+} else {
+  location.href = redirectToPublicAppAuth
+}

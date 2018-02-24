@@ -1,5 +1,6 @@
-function getQueryString (location, key) {
-  let string = location.split('?')[1] || ''
+function getQueryString (href, key) {
+  let hrefNoHash = href.split('#')[0]
+  let string = hrefNoHash.split('?')[1] || ''
   let arr = string.split('&')
   let obj = arr.reduce((acc, cur, index) => {
     let arr = cur.split('=')

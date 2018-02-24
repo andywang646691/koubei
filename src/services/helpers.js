@@ -2,7 +2,6 @@ import axios from 'axios'
 import { Toast } from 'mint-ui'
 import validateFunc from './validateFunc'
 import { getAplAuth } from '@/apis/index'
-import { getQueryString } from '@/services/util'
 
 function returnFileSize (bytes) {
   if (typeof bytes === 'number') {
@@ -52,8 +51,7 @@ function validateForm (formData, validations) {
   return hasError
 }
 
-function checkAuth () {
-  let authCode = getQueryString(location.href, 'auth_code')
+function checkAuth (authCode) {
   let alpUserInfo = {}
   return getAplAuth(authCode, 'ALP').then(res => {
     let data = res.data
@@ -64,10 +62,11 @@ function checkAuth () {
         userId: result.userId,
         name: result.name
       }
+      return alpUserInfo
     } else {
       alert('授权失败!')
+      return Promise.reject(new Error('auth fail'))
     }
-    return alpUserInfo
   })
 }
 
