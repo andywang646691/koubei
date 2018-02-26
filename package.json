@@ -10,7 +10,8 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "rm -rf dist && node build/buildForTest.js",
     "build:product": "rm -rf dist && node build/build.js",
-    "deploy": "npm run build && rsync -rcv --progress dist/ webapp@192.168.1.176:/opt/servplat/voucher/neustar/voucher-mb"
+    "deploy": "npm run build && rsync -rcv --progress dist/ webapp@192.168.1.176:/opt/servplat/voucher/neustar/voucher-mb",
+    "deploy:product": "npm run build:product && rsync -rcv --progress dist/ webapp@192.168.1.176:/opt/servplat/voucher/neustar/voucher-mb"
   },
   "dependencies": {
     "axios": "^0.17.1",

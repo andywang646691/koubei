@@ -112,7 +112,7 @@ export default {
   },
   data () {
     return {
-      clientId: this.$store.state.alpUserInfo || '150759774805270',
+      clientId: this.$store.state.alpUserInfo.clientId || '150759774805270',
       logoUrl: '',
       logoId: '',
       coupouName: '',

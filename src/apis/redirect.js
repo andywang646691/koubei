@@ -11,6 +11,6 @@ if (process.env.NODE_ENV === 'production') {
   redirectToPublicAppAuth = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017041906824519&auth_skip=false&scope=auth_base&redirect_uri=https://card.ipay.so/lingxi/koubei/activitymb/create'
 } else {
   redirectToAppAuth = 'https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=2017041906825051&redirect_uri=https://cardtest.ipay.so/alipay/auth?req_from=voucher-mb'
-  redirectToPublicAppAuth = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017041906825051&auth_skip=false&scope=auth_base&redirect_uri=https://cardtest.ipay.so/koubei/activitymb/create'
+  redirectToPublicAppAuth = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017041906825051&auth_skip=false&scope=auth_base&redirect_uri=https://cardtest.ipay.so/koubei/activitymb/create&vconsole=hide'
 }
 export { redirectToAppAuth, redirectToPublicAppAuth }
