@@ -156,7 +156,7 @@ export default {
       'other'
     ]),
     storeTips () {
-      return this.shops.length === 0 ? '请选择' : `已选择${this.shops.length}门店`
+      return this.shops.length === 0 ? '请选择' : `${this.shops.length}门店`
     },
     requestParams () {
       let params = {
