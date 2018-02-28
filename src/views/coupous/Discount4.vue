@@ -12,7 +12,7 @@
         mt-cell(
         is-link
         title="适用门店"
-        value="请选择"
+        v-bind:value="storeTips"
         v-on:click.native="$router.push({name: 'discount4.stores'})"
         )
       .cell-wrapper
@@ -145,7 +145,7 @@ export default {
       logoUrl: '',
       logoId: '',
       coupouName: '',
-      brandName: '',
+      brandName: this.$store.state.alpUserInfo.name || '',
       worthValue: '',
       lowestLimit: '',
       pickerStartValue: new Date(),
@@ -184,6 +184,9 @@ export default {
     ...mapState('discount4Other', [
       'other'
     ]),
+    storeTips () {
+      return this.shops.length === 0 ? '请选择' : `已选择${this.shops.length}门店`
+    },
     requestParams () {
       let params = {
         clientId: this.clientId,

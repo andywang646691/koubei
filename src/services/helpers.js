@@ -53,6 +53,14 @@ function validateForm (formData, validations) {
 
 function checkAuth (authCode) {
   let alpUserInfo = {}
+  if (process.env.NODE_ENV === 'development') {
+    alpUserInfo = {
+      clientId: '150759774805270',
+      userId: '2088011932868893',
+      name: '三棵树'
+    }
+    return Promise.resolve(alpUserInfo)
+  }
   return getAplAuth(authCode, 'ALP').then(res => {
     let data = res.data
     if (data.status === 0) {

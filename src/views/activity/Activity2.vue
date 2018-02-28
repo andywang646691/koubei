@@ -12,7 +12,7 @@
         mt-cell(
         is-link
         title="适用门店"
-        value="请选择"
+        v-bind:value="storeTips"
         v-on:click.native="$router.push({name: 'activity2.stores'})"
         )
       .cell-wrapper
@@ -144,7 +144,7 @@ export default {
       logoUrl: '',
       logoId: '',
       activeName: '',
-      brandName: '',
+      brandName: this.$store.state.alpUserInfo.name || '',
       pickerStartValue: new Date(),
       pickerEndValue: new Date(),
       crowdType: '',
@@ -199,6 +199,9 @@ export default {
     ...mapState('awards', [
       'promoTools'
     ]),
+    storeTips () {
+      return this.shops.length === 0 ? '请选择' : `已选择${this.shops.length}门店`
+    },
     promoToolsChange () {
       return this.promoTools.length
     },
