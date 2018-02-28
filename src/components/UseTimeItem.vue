@@ -101,7 +101,7 @@ export default {
       return `${this.pickerStartValue}:00`
     },
     endTime () {
-      return `${this.pickerEndValue}:00`
+      return `${this.pickerEndValue}:59`
     }
   },
   components: {

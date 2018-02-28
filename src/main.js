@@ -1,3 +1,6 @@
+// polyfill
+import 'core-js/fn/array/includes'
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'

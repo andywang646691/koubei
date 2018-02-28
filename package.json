@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "core-js": "^2.5.3",
     "date-fns": "^1.29.0",
     "fastclick": "^1.0.6",
     "is-type": "0.0.1",
