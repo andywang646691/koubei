@@ -41,15 +41,15 @@ Vue.prototype.$log = console.log
 
 let authCode = getQueryString(location.href, 'auth_code')
 if (authCode) {
-  /* eslint-disable no-new */
-  let vue = new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
-  })
   checkAuth(authCode).then(alpUserInfo => {
+    /* eslint-disable no-new */
     intercept(alpUserInfo)
+    let vue = new Vue({
+      el: '#app',
+      router,
+      store,
+      render: h => h(App)
+    })
     vue.$store.state.alpUserInfo = alpUserInfo
   }).catch(() => {
     location.href = redirectToAppAuth
