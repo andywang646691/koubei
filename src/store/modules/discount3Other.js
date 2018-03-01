@@ -1,6 +1,10 @@
 import * as types from '@/store/mutation-types'
+import useInstructionsStore from './useInstructions'
+import useTimeStore from './useTime'
 
 // initial state
+let useTime = useTimeStore.state.useTimeArr.slice(0)
+let useInstructions = useInstructionsStore.state.useInstructions.slice(0)
 function initState () {
   return {
     other: {
@@ -9,12 +13,12 @@ function initState () {
       useway: 'DIRECT_SEND',
       effectTime: 'IMMEDIATELY',
       payChannelLimit: 'USE_NO_LIMIT',
-      useTime: null,
       lowestLimit: '',
       donateFlag: '0',
       userWinCount: '',
       userWinFrequency: '',
-      useInstructions: ''
+      useTime,
+      useInstructions
     }
   }
 }
