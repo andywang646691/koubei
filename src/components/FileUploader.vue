@@ -29,7 +29,8 @@ export default {
       domainInUpload: 'http://up.qiniu.com',
       backend: '/neuStar/alp/photoUpload.json',
       token: '',
-      qiniuUrl: ''
+      qiniuUrl: '',
+      imageId: ''
     }
   },
   props: {
@@ -45,7 +46,7 @@ export default {
   },
   computed: {
     indicator () {
-      if (this.qiniuUrl) {
+      if (this.imageId) {
         return '请编辑'
       } else {
         return '请添加'
@@ -62,7 +63,7 @@ export default {
   },
   methods: {
     uploadToQiniu ({ fileElem, form }) {
-      uploadFile({
+      return uploadFile({
         fileElem,
         url: this.domainInUpload,
         data: form,
@@ -72,22 +73,24 @@ export default {
           let url = `${this.domainInDownload}/${data.key}`
           this.qiniuUrl = url
           this.$emit(`${this.flag}Url`, url)
-          Toast(`${this.uploaderName}上传成功`)
         }
-      }).catch(() => {
-        Toast(`${this.uploaderName}上传失败`)
       })
     },
     uploadToBackend ({ fileElem, form }) {
-      uploadFile({
+      return uploadFile({
         fileElem,
         url: this.backend,
         data: form,
         uploaderName: this.uploaderName
       }).then(data => {
         if (data.status === 0) {
+          this.imageId = data.data.imageId
           this.$emit(`${this.flag}Id`, data.data.imageId)
+          Toast(`${this.uploaderName}上传成功`)
         }
+      }).catch(() => {
+        Toast(`${this.uploaderName}上传失败`)
+        return Promise.reject(new Error('上传失败'))
       })
     },
     bindToFileElem () {
@@ -97,6 +100,7 @@ export default {
     fileActionOnchange (e) {
       let fileElem = e.target
       let fileData = getFileFromDom(fileElem)
+      if (!fileData) return
       if (fileData.size > 2 * 1024 * 1024) {
         return Toast('上传的logo太大了')
       }
@@ -110,8 +114,9 @@ export default {
       let form2 = new FormData()
       form2.append('fileParameter', fileData.file)
       form2.append('clientId', this.clientId)
-      this.uploadToQiniu({ fileElem, form })
-      this.uploadToBackend({ fileElem, form: form2 })
+      this.uploadToBackend({ fileElem, form: form2 }).then(() => {
+        this.uploadToQiniu({ fileElem, form })
+      })
     },
     startUpload (e) {
       console.log(e)
