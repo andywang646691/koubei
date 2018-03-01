@@ -2,9 +2,12 @@
   .stores.fill-view.bg-gray
     mt-cell(title="暂无适用门店" v-show="!shopInCityList.length")
     div(v-show="shopInCityList.length")
-      .total
-        mt-checkbox(label="全选" v-model="allChecked" v-on:change="selectAll")
-        span  共 {{ storeCount }}
+      header
+        .total
+          mt-checkbox(label="全选" v-model="allChecked" v-on:change="selectAll")
+          span  共 {{ storeCount }}
+        .reload
+          span(@click="getAllShopInfo()") 刷新
       .cell-wrapper(v-for="city in shopInCityList")
         mt-checklist(
           v-bind:title="city.cityName"
@@ -78,6 +81,36 @@ export default {
     confirm () {
       this.setShops(this.shops)
       this.$router.push(this.parentRoute.path)
+    },
+    getAllShopInfo () {
+      getShopInfo().then(res => {
+        let data = res.data
+        if (data.status === 0) {
+          this.storeCount = data.shopCount
+          let flag = []
+          let newData = data.data.reduce((acc, cur) => {
+            let { cityCode, cityName, shopId, mainShopName, branchShopName } = cur
+            let shop = {
+              shopId,
+              mainShopName,
+              branchShopName
+            }
+            let index = flag.indexOf(cityCode)
+            if (index === -1) {
+              flag.push(cityCode)
+              acc.push({
+                cityCode,
+                cityName,
+                shops: [shop]
+              })
+            } else {
+              acc[index].shops.push(shop)
+            }
+            return acc
+          }, [])
+          this.cityList = newData
+        }
+      }).catch(error => Toast(error))
     }
   },
   components: {
@@ -85,34 +118,7 @@ export default {
   },
   created () {
     document.title = '适用门店'
-    getShopInfo().then(res => {
-      let data = res.data
-      if (data.status === 0) {
-        this.storeCount = data.shopCount
-        let flag = []
-        let newData = data.data.reduce((acc, cur) => {
-          let { cityCode, cityName, shopId, mainShopName, branchShopName } = cur
-          let shop = {
-            shopId,
-            mainShopName,
-            branchShopName
-          }
-          let index = flag.indexOf(cityCode)
-          if (index === -1) {
-            flag.push(cityCode)
-            acc.push({
-              cityCode,
-              cityName,
-              shops: [shop]
-            })
-          } else {
-            acc[index].shops.push(shop)
-          }
-          return acc
-        }, [])
-        this.cityList = newData
-      }
-    }).catch(error => Toast(error))
+    this.getAllShopInfo()
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -128,10 +134,18 @@ export default {
     margin-left: 15px;
   }
   .total {
-    background: white;
     min-height: 48px;
     display: flex;
     align-items: center;
-    padding-left: 20px;
+  }
+  .stores header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 0 20px;
+  }
+  .reload {
+    color: $green;
   }
 </style>
