@@ -12,14 +12,14 @@ div
           br
           span  {{ item.text }}
     .btn-list
-      button.btn.btn-reverse.btn-other(v-on:click="$router.push(parentRoute.path + '/useTime/item')")
+      button.btn.btn-reverse.btn-other(v-on:click="addUseTimeItem")
         span 添加
       button.btn.btn-reverse.btn-other(v-on:click="confirm")
         span 确定
 </template>
 
 <script>
-import { MessageBox } from 'mint-ui'
+import { MessageBox, Toast } from 'mint-ui'
 import { mapState, mapActions } from 'vuex'
 
 let weekDict = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
@@ -47,6 +47,12 @@ export default {
       // 局部数据映射至全局
       this.updateResultUseTime()
       this.$router.push(this.parentRoute.path)
+    },
+    addUseTimeItem () {
+      if (this.useTimeArr.length >= 5) {
+        return Toast('使用时段最多添加5条')
+      }
+      this.$router.push(this.parentRoute.path + '/useTime/item')
     }
   },
   computed: {
