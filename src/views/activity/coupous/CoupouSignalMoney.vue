@@ -23,6 +23,7 @@
         rows="3"
         v-model="gdDetail"
         label="商品详情"
+        class="flex-item-start"
         placeholder="120字以内"
         v-bind:attr="{maxlength: 120}"
         )

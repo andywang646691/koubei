@@ -5,7 +5,7 @@
       .cell-wrapper.top-item
         mt-cell(
         is-link
-        title="自动延长上架时间"
+        title="自动续期"
         v-bind:value="autoDelayFlag | boolTransform"
         v-on:click.native="sheetShwon1 = true"
         )

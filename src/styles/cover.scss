@@ -31,3 +31,7 @@ input.mint-checkbox-input:checked+.mint-checkbox-core {
   z-index: 100;
   position: relative;
 }
+
+.flex-item-start .mint-cell-title {
+  align-self: flex-start
+}
