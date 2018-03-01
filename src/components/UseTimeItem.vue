@@ -84,6 +84,7 @@
 <script>
 import MyCheckbox from '@/components/MyCheckbox'
 import { mapActions } from 'vuex'
+import { Toast } from 'mint-ui'
 export default {
   name: 'usetime-item',
   data () {
@@ -114,13 +115,19 @@ export default {
     openPicker (id) {
       this.$refs[id].open()
     },
+    compareTime (startTime, endTime) {
+      return new Date(`2018-03-01T${startTime}`) - new Date(`2018-03-01T${endTime}`)
+    },
     confirm () {
+      if (this.compareTime(this.startTime, this.endTime) > 0) return Toast('开始时间不能大于结束时间')
       if (this.useTimeDay.length > 0) {
         this.updateUseTime({
           dimension: 'W',
           times: `${this.startTime},${this.endTime}`,
           values: this.useTimeDay.join(',')
         })
+      } else {
+        return Toast('请选择可用日期')
       }
       this.$router.push(this.parentRoute.path)
     }
