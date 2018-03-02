@@ -89,6 +89,8 @@
       .btn-list
         button.btn.btn-reverse.btn-other(v-on:click="confirm")
           span  确定
+        button.btn.btn-red.btn-other(v-on:click="deleteItem")
+          span  删除
       mt-actionsheet(
       :actions="effectTimeOptions"
       v-model="sheetShwon1"
@@ -107,6 +109,7 @@
 import FormCell from '@/components/FormCell.vue'
 import FileUploader from '@/components/FileUploader.vue'
 import { mapActions, mapState } from 'vuex'
+import { MessageBox } from 'mint-ui'
 export default {
   name: 'coupou-signalDiscount',
   data () {
@@ -160,8 +163,15 @@ export default {
   },
   methods: {
     ...mapActions('awards', [
-      'setPromoToolsItem'
+      'setPromoToolsItem',
+      'deletePromoToolsItem'
     ]),
+    deleteItem () {
+      MessageBox.confirm('确认要删除这种券吗？').then(action => {
+        this.deletePromoToolsItem({index: this.$route.params.index})
+        this.$router.push({name: 'activity2'})
+      })
+    },
     confirm () {
       let voucherItem = {
         discount: this.discount,

@@ -40,6 +40,7 @@ const mutations = {
     }
   },
   [types.DELETE_PROMOTOOLS_ITEM] (state, { index }) {
+    console.log(state.promoTools.length, index)
     state.promoTools.splice(index, 1)
   },
   [types.DELETE_VOUCHER_ITEM] (state, { index }) {

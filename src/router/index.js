@@ -408,7 +408,7 @@ const routes = [
         name: 'coupou-signalMoney',
         path: 'coupou-signalMoney/:index',
         component: CoupouSignalMoney,
-        meta: { title: '单品折扣券' },
+        meta: { title: '单品代金券' },
         children: [
           {
             name: 'coupou-signalMoney.useTime',
