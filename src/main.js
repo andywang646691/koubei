@@ -12,7 +12,6 @@ import store from '@/store/index'
 import { checkAuth } from '@/services/helpers'
 import { redirectToAppAuth, redirectToPublicAppAuth } from '@/apis/redirect'
 import { getQueryString } from './services/util'
-import { onlyNumAndDot } from '@/services/directives/onlyNum'
 if (process.env.NODE_env !== 'production') {
   let script = document.createElement('script')
   script.src = 'https://res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/3.0.0/vconsole.min.js'
@@ -33,8 +32,6 @@ Vue.component(Checklist.name, Checklist)
 Vue.filter('formatCrowdType', formatCrowdType)
 Vue.filter('boolTransform', boolTransform)
 Vue.filter('dictFormat', dictFormat)
-
-Vue.directive('num', { bind: onlyNumAndDot })
 
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function () {
