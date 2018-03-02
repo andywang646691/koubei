@@ -107,6 +107,7 @@ div
 <script>
 import FormCell from '@/components/FormCell.vue'
 import { mapState, mapActions } from 'vuex'
+import { Toast } from 'mint-ui'
 export default {
   name: 'discount1-other',
   data () {
@@ -182,6 +183,10 @@ export default {
         userWinFrequency: this.userWinFrequency,
         useInstructions: this.useInstructions
       }))
+      if (data.distriAmount && data.distriAmount <= 0) {
+        Toast('发券总量需大于0')
+        return true
+      }
       this.setDiscount1Other(data)
       this.$router.push({name: 'discount1'})
     }

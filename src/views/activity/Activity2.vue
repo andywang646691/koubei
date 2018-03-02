@@ -270,7 +270,10 @@ export default {
         budgetTotal: this.budgetTotal,
         promoTools: this.realPromoTools
       }
-      console.log(`result: ${validateForm(formData, activity2Validation)}`)
+      if (formData.budgetTotal && formData.budgetTotal <= 0) {
+        Toast('发券总量需大于0')
+        return true
+      }
       if (validateForm(formData, activity2Validation)) return true
       createCampaign(this.requestParams).then(res => {
         let data = res.data
