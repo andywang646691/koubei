@@ -76,7 +76,7 @@
         title="发券数量"
         type="tel"
         v-model="sendNum"
-        placeholder="不填无限制"
+        placeholder="默认为1"
         )
       .btn-list
         button.btn.btn-reverse.btn-other(v-on:click="confirm")
@@ -101,7 +101,7 @@
 import FormCell from '@/components/FormCell.vue'
 import FileUploader from '@/components/FileUploader.vue'
 import { mapActions, mapState } from 'vuex'
-import { MessageBox } from 'mint-ui'
+import { MessageBox, Toast } from 'mint-ui'
 export default {
   name: 'coupou-signalMoney',
   data () {
@@ -179,6 +179,7 @@ export default {
         gdUrl: this.gdUrl,
         gdId: this.gdId
       }
+      if (voucherItem.sendNum > 5) return Toast('发券数量最多为5张')
       let voucherObj = JSON.parse(JSON.stringify({
         voucher: {
           type: 'MONEY',

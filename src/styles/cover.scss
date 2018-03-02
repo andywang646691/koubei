@@ -35,3 +35,8 @@ input.mint-checkbox-input:checked+.mint-checkbox-core {
 .flex-item-start .mint-cell-title {
   align-self: flex-start
 }
+
+a.mint-cell-swipe-button {
+  display: flex;
+  align-items: center;
+}

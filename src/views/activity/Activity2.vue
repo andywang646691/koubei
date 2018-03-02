@@ -39,12 +39,12 @@
         v-on:logoUrl="logoUrl = arguments[0]"
         v-on:logoId="logoId = arguments[0]"
         )
-        mt-cell(
-        is-link
-        title="自动续期"
-        v-bind:value="autoDelayFlag | boolTransform"
-        v-on:click.native="sheetShwon2 = true"
-        )
+        <!--mt-cell(-->
+        <!--is-link-->
+        <!--title="自动续期"-->
+        <!--v-bind:value="autoDelayFlag | boolTransform"-->
+        <!--v-on:click.native="sheetShwon2 = true"-->
+        <!--)-->
         form-cell(
         title="发放总量"
         v-model="budgetTotal"
