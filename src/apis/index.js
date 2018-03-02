@@ -1,7 +1,8 @@
 
 import axios from 'axios'
 import { allShopApi, alpCreateCampaign, aplAuth, refreshShopApi } from './apis'
-import { filterEmoji } from '@/services/util'
+import { checkEmoji } from '@/services/util'
+import { Toast } from 'mint-ui'
 
 function getShopInfo () {
   return axios({
@@ -11,7 +12,9 @@ function getShopInfo () {
 }
 
 function createCampaign (data) {
-  data = JSON.parse(filterEmoji(JSON.stringify(data)))
+  if (checkEmoji(JSON.stringify(data))) {
+    return Toast('请不要输入特殊字符(如： 颜文字、表情等)')
+  }
   return axios({
     method: 'POST',
     url: alpCreateCampaign,
