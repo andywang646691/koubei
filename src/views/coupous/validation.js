@@ -7,7 +7,7 @@ const discount1Validation = [
   },
   {
     key: 'shops',
-    rule: [{name: 'required', errMsg: '.请选择适用门店'}]
+    rule: [{name: 'required', errMsg: '请选择适用门店'}]
   },
   {
     key: 'pickerStartValue',
@@ -43,7 +43,7 @@ const discount2Validation = [
   },
   {
     key: 'shops',
-    rule: [{name: 'required', errMsg: '.请选择适用门店'}]
+    rule: [{name: 'required', errMsg: '请选择适用门店'}]
   },
   {
     key: 'pickerStartValue',
@@ -84,7 +84,7 @@ const discount3Validation = [
   },
   {
     key: 'shops',
-    rule: [{name: 'required', errMsg: '.请选择适用门店'}]
+    rule: [{name: 'required', errMsg: '请选择适用门店'}]
   },
   {
     key: 'pickerStartValue',
@@ -132,7 +132,7 @@ const discount4Validation = [
   },
   {
     key: 'shops',
-    rule: [{name: 'required', errMsg: '.请选择适用门店'}]
+    rule: [{name: 'required', errMsg: '请选择适用门店'}]
   },
   {
     key: 'pickerStartValue',

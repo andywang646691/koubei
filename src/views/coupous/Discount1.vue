@@ -50,7 +50,8 @@ div
         title="折扣力度"
         unit="折"
         maxlength="3"
-        v-model="discount"
+        v-bind:value="discount"
+        v-num="discount"
       )
       mt-cell(
         is-link

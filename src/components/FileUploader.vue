@@ -102,7 +102,7 @@ export default {
       let fileData = getFileFromDom(fileElem)
       if (!fileData) return
       if (fileData.size > 2 * 1024 * 1024) {
-        return Toast('上传的logo太大了')
+        return Toast('上传的LOGO太大了')
       }
       if (!/(png)|(jpe?g)/.test(fileData.type)) {
         return Toast('仅允许png或jpg格式的图片')

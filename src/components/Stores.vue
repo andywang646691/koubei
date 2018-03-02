@@ -7,7 +7,7 @@
           mt-checkbox(label="全选" v-model="allChecked" v-on:change="selectAll")
           span  共 {{ storeCount }}
         .reload
-          span(@click="getAllShopInfo()") 刷新
+          span(@click="refreshShopInfo()") 刷新
       .cell-wrapper(v-for="city in shopInCityList")
         mt-checklist(
           v-bind:title="city.cityName"
@@ -21,7 +21,7 @@
 
 <script>
 import MtCheckbox from '@/components/MtCheckbox'
-import { getShopInfo } from '@/apis/index'
+import { getShopInfo, refreshShop } from '@/apis/index'
 import { Toast } from 'mint-ui'
 import { mapActions } from 'vuex'
 export default {
@@ -111,6 +111,14 @@ export default {
           this.cityList = newData
         }
       }).catch(error => Toast(error))
+    },
+    refreshShopInfo () {
+      refreshShop().then(res => {
+        let data = res.data
+        if (data.status === 0) {
+          this.getAllShopInfo()
+        }
+      })
     }
   },
   components: {
