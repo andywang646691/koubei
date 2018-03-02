@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import { allShopApi, alpCreateCampaign, aplAuth, refreshShopApi } from './apis'
+import { filterEmoji } from '@/services/util'
 
 function getShopInfo () {
   return axios({
@@ -10,6 +11,7 @@ function getShopInfo () {
 }
 
 function createCampaign (data) {
+  data = JSON.parse(filterEmoji(JSON.stringify(data)))
   return axios({
     method: 'POST',
     url: alpCreateCampaign,
