@@ -96,6 +96,7 @@ export default {
     bindToFileElem () {
       let fileElem = document.getElementById('input-file')
       fileElem.click()
+      console.log('load file')
     },
     fileActionOnchange (e) {
       let fileElem = e.target

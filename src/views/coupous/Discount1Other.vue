@@ -183,10 +183,6 @@ export default {
         userWinFrequency: this.userWinFrequency,
         useInstructions: this.useInstructions
       }))
-      if (data.lowestLimit <= data.hightestLimit) {
-        Toast('最低消费不能小于最高优惠')
-        return true
-      }
       if (data.distriAmount && data.distriAmount <= 0) {
         Toast('发券总量需大于0')
         return true
