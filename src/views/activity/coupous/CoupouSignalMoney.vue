@@ -123,8 +123,7 @@ export default {
       ],
       effectTime: 'IMMEDIATELY',
       effectTimeOptions: [
-        {name: '领取后立即生效', method: () => { this.effectTime = 'IMMEDIATELY' }},
-        {name: '次日生效', method: () => { this.effectTime = 'DELAY' }}
+        {name: '领取后立即生效', method: () => { this.effectTime = 'IMMEDIATELY' }}
       ],
       donateFlag: '0',
       donateFlagOptions: [
