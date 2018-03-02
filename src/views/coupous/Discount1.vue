@@ -239,7 +239,6 @@ export default {
         coupouExpired: this.coupouExpiredView.slice(0, -1),
         useInstructions: this.other.useInstructions
       }
-      console.log(`result: ${validateForm(formData, discount1Validation)}`)
       if (validateForm(formData, discount1Validation)) return true
       createCampaign(this.requestParams).then(res => {
         let data = res.data
