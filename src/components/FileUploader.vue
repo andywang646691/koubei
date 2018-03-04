@@ -4,15 +4,14 @@
     :title="title"
     v-bind:value="indicator"
     is-link
-    v-on:click.native="bindToFileElem"
     )
-    form(v-show="false")
-      input(
-        type="file"
-        accept="image/*"
-        v-on:change="fileActionOnchange"
-        id="input-file"
-      )
+    input(
+      type="file"
+      accept="image/*"
+      v-on:change="fileActionOnchange"
+      id="input-file"
+      size="1"
+    )
 </template>
 
 <script>
@@ -144,5 +143,16 @@ export default {
 <style lang="scss" scoped>
   label {
     display: block;
+    position: relative;
+  }
+  .mint-cell input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
   }
 </style>
