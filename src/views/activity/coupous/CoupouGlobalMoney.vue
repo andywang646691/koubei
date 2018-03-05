@@ -159,7 +159,6 @@ export default {
           }
         },
         sendRule: {
-          minCost: this.lowestLimit,
           sendNum: this.sendNum
         }
       }))

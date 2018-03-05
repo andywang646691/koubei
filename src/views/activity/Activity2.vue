@@ -237,8 +237,7 @@ export default {
           userWinCount: this.userWinCount,
           userWinFrequency: this.userWinFrequency ? `D||${this.userWinFrequency}` : '',
           crowdRestriction: this.crowdType,
-          suitShops: this.shops,
-          minCost: this.minCost || '0.01'
+          suitShops: this.shops
         },
         budgetInfo: {
           budgetTotal: this.budgetTotal,
@@ -246,7 +245,12 @@ export default {
         },
         promoTools: this.realPromoTools
       }
-      if (!this.budgetInfo) delete params.budgetInfo
+      if (!this.budgetTotal) delete params.budgetInfo
+      if (params.promoTools.length === 1) {
+        params.promoTools[0].sendRule.minCost = this.minCost || '0.01'
+      } else {
+        params.constraintInfo.minCost = this.minCost || '0.01'
+      }
       return params
     },
     nestedView () {
@@ -285,7 +289,7 @@ export default {
           Toast('创建新活动成功')
           this.$router.push('/')
         } else {
-          Toast(data.msg)
+          Toast(data.msg.replace(/\w+/, ''))
         }
       }).catch(err => Toast(err))
     },
