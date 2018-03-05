@@ -302,7 +302,7 @@ export default {
           Toast('创建新活动成功')
           this.$router.push('/')
         } else {
-          Toast(data.msg)
+          Toast(data.msg.replace(/\w+/, ''))
         }
       }).catch(err => Toast(err))
     },
