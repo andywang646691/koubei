@@ -10,7 +10,9 @@
         v-model="coupouExpired"
         unit="天"
         maxlength="3"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
       )
     .cell-wrapper(v-show="expiredType === 'FIXED'")
       mt-cell(

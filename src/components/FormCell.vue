@@ -19,6 +19,8 @@
         v-on:input="updateValue($event.target.value)"
         v-bind:placeholder="placeholder"
         v-bind:maxlength="maxlength"
+        v-bind:pattern="pattern"
+        v-bind:inputmode="inputmode"
         )
         span  {{ unit }}
 </template>
@@ -32,6 +34,8 @@ export default {
     title: {},
     value: {},
     unit: {},
+    pattern: {},
+    inputmode: {},
     maxlength: { default: 15 },
     placeholder: {
       default: '请输入'
