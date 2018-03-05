@@ -261,6 +261,10 @@ export default {
         ]
       }
       if (!this.other.distriAmount) delete params.budgetInfo
+      if (this.other.useway === 'REAL_TIME_SEND') {
+        // 不需要用户领取
+        params.publishChannels = params.publishChannels.filter(item => item.type !== 'SHORT_LINK')
+      }
       return params
     },
     nestedView () {
