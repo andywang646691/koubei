@@ -14,7 +14,7 @@ function initState () {
       effectTime: 'IMMEDIATELY',
       payChannelLimit: 'USE_NO_LIMIT',
       lowestLimit: '',
-      donateFlag: '0',
+      donateFlag: 'false',
       userWinCount: '',
       userWinFrequency: '',
       useTime,

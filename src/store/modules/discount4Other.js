@@ -13,7 +13,7 @@ function initState () {
       useway: 'DIRECT_SEND',
       effectTime: 'IMMEDIATELY',
       payChannelLimit: 'USE_NO_LIMIT',
-      donateFlag: '0',
+      donateFlag: 'false',
       userWinCount: '',
       userWinFrequency: '',
       useTime,

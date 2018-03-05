@@ -15,7 +15,7 @@ function initState () {
       payChannelLimit: 'USE_NO_LIMIT',
       lowestLimit: '',
       hightestLimit: '',
-      donateFlag: '0',
+      donateFlag: 'false',
       userWinCount: '',
       userWinFrequency: '',
       useTime,

@@ -102,10 +102,10 @@ export default {
     return {
       userWinCount: '',
       userWinFrequency: '',
-      donateFlag: '0',
+      donateFlag: 'false',
       donateFlagOptions: [
-        {name: '是', method: () => { this.donateFlag = '1' }},
-        {name: '否', method: () => { this.donateFlag = '0' }}
+        {name: '是', method: () => { this.donateFlag = 'true' }},
+        {name: '否', method: () => { this.donateFlag = 'false' }}
       ],
       lowestLimit: '',
       hightestLimit: '',
