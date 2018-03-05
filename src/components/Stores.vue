@@ -111,6 +111,11 @@ export default {
             }
             return acc
           }, [])
+          newData.sort((a, b) => a.cityCode - b.cityCode)
+          newData = newData.map(city => {
+            city.shops.sort((a, b) => a.shopId - b.shopId)
+            return city
+          })
           this.cityList = newData
         }
       }).catch(error => Toast(error))
