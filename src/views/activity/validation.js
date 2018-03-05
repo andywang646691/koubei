@@ -27,7 +27,7 @@ const activity1Validation = [
   {
     key: 'lowestLimit',
     associateKey: 'worthValue',
-    rule: [{name: 'required', errMsg: '请填写最低消费'}]
+    rule: [{name: 'required', errMsg: '请填写最低消费'}, {name: 'amt-compare', errMsg: '优惠金额不能大于最低消费'}]
   },
   {
     key: 'highestDiscountLimit',
