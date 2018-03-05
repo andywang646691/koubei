@@ -86,6 +86,8 @@ export default {
           this.imageId = data.data.imageId
           this.$emit(`${this.flag}Id`, data.data.imageId)
           Toast(`${this.uploaderName}上传成功`)
+        } else {
+          return Promise.reject(new Error(data.msg))
         }
       }).catch(() => {
         Toast(`${this.uploaderName}上传失败`)

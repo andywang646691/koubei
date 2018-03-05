@@ -1,6 +1,9 @@
 <template lang="pug">
   .stores.fill-view.bg-gray
-    mt-cell(title="暂无适用门店" v-show="!shopInCityList.length")
+    div(class="no-store" v-show="!shopInCityList.length")
+      mt-cell(title="暂无适用门店")
+      .reload.position
+        span(@click="refreshShopInfo()") 刷新
     div(v-show="shopInCityList.length")
       header
         .total
@@ -155,5 +158,16 @@ export default {
   }
   .reload {
     color: $green;
+  }
+  .no-store {
+    position: relative;
+  }
+  .reload.position {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
   }
 </style>
