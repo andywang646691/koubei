@@ -15,6 +15,8 @@ function boolTransform (value) {
     let valueNum = Number(value)
     if (is.number(valueNum) && !isNaN(valueNum)) {
       return valueNum ? '是' : '否'
+    } else if (value === 'true') {
+      return value === 'true' ? '是' : '否'
     } else {
       return value === 'Y' ? '是' : '否'
     }
