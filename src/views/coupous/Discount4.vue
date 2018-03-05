@@ -74,13 +74,17 @@
         form-cell(
         title="优惠金额"
         unit="元"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         v-model="worthValue"
         )
         form-cell(
         title="最低消费"
         unit="元"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         v-model="lowestLimit"
         )
         mt-cell(

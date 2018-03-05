@@ -12,7 +12,9 @@
         form-cell(
         title="发放总量"
         unit="张"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         placeholder="不填无限制"
         v-model="distriAmount"
         )
@@ -44,7 +46,9 @@
         form-cell(
         title="最低消费"
         v-model="lowestLimit"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         placeholder="不填无限制"
         )
         mt-cell(
@@ -57,14 +61,18 @@
         title="每个用户总共参与次数"
         v-model="userWinCount"
         placeholder="不填无限制"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         unit="次"
         )
         form-cell(
         title="每个用户每天参与次数"
         v-model="userWinFrequency"
         placeholder="不填无限制"
-        type="tel"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         unit="次"
         )
       .cell-wrapper
