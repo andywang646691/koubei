@@ -6,7 +6,7 @@ import indicatorApis from './indicator'
 let lock = {}
 function intercept ({ clientId = '150759774805270', transFrom = 'ALP' }) {
   axios.interceptors.request.use(function (config) {
-    config.params = config.params ? { ...config.params, clientId, transFrom } : { clientId, transFrom }
+    config.params = config.params ? { ...config.params, clientId, transFrom } : { clientId, transFrom, timeStamp: Date.now() }
     if (lock[config.url]) return Promise.reject(new Error('has a same request'))
     if (lockedApis.includes(config.url)) {
       lock[config.url] = true
