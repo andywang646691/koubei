@@ -91,3 +91,7 @@ button.btn-submit span {
   margin-top: get-vw(20px);
 }
 
+// input框 focus
+input:focus {
+  outline: none;
+}
