@@ -32,7 +32,6 @@
         title="最低消费"
         v-model="lowestLimit"
         type="tel"
-        placeholder="不填无限制"
         )
         form-cell(
         title="优惠金额"
@@ -76,6 +75,8 @@
 import FormCell from '@/components/FormCell.vue'
 import { mapActions, mapState } from 'vuex'
 import { MessageBox, Toast } from 'mint-ui'
+import { validateForm } from '@/services/helpers'
+import { coupou2Validation } from './validation'
 export default {
   name: 'coupou-globalMoney',
   data () {
@@ -143,6 +144,7 @@ export default {
         useInstructions: this.useInstructions
       }
       if (voucherItem.sendNum > 5) return Toast('发券数量最多为5张')
+      if (validateForm(voucherItem, coupou2Validation)) return true
       let voucherObj = JSON.parse(JSON.stringify({
         voucher: {
           type: 'MONEY',

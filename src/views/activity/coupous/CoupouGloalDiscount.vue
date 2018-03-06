@@ -82,12 +82,14 @@ div
 import FormCell from '@/components/FormCell.vue'
 import { mapActions, mapState } from 'vuex'
 import { MessageBox, Toast } from 'mint-ui'
+import { validateForm } from '@/services/helpers'
+import { coupou1Validation } from './validation'
 export default {
   name: 'coupou-globalDiscount',
   data () {
     return {
       sendNum: '1',
-      discount: '8.5',
+      discount: '',
       payChannelLimit: 'USE_NO_LIMIT',
       payChannelLimitOptions: [
         {name: '不限制', method: () => { this.payChannelLimit = 'USE_NO_LIMIT' }},
@@ -148,7 +150,7 @@ export default {
         useInstructions: this.useInstructions
       }
       if (voucherItem.sendNum > 5) return Toast('发券数量最多为5张')
-      if (voucherItem.discount < 1.1 || voucherItem.discount > 9.9) return Toast('折扣力度需在1.1~9.9之间')
+      if (validateForm(voucherItem, coupou1Validation)) return true
       let voucherObj = JSON.parse(JSON.stringify({
         voucher: {
           rate: (+this.discount * 0.1).toFixed(2),
