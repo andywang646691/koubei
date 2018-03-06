@@ -167,19 +167,8 @@ export default {
       autoDelayOptions: [
         {name: '是', method: () => { this.autoDelayFlag = 'Y' }},
         {name: '否', method: () => { this.autoDelayFlag = 'N' }}
-      ]
-    }
-  },
-  computed: {
-    ...mapState('stores', [
-      'shops'
-    ]),
-    ...mapState('awards', [
-      'promoTools'
-    ]),
-    awardsOption () {
-      let awards = this.promoTools.map(item => item.name)
-      let option = [
+      ],
+      awardsOption: [
         {
           name: '全场折扣券',
           label: 'coupou-globalDiscount',
@@ -201,8 +190,15 @@ export default {
           method: () => this.promoTools.length < 4 ? this.setPromoToolsItem({item: {name: 'coupou-signalMoney', voucherObj: {}}}) : Toast('最多添加四种不同的券')
         }
       ]
-      return option.filter(item => !awards.includes(item.label))
-    },
+    }
+  },
+  computed: {
+    ...mapState('stores', [
+      'shops'
+    ]),
+    ...mapState('awards', [
+      'promoTools'
+    ]),
     storeTips () {
       return this.shops.length === 0 ? '请选择' : `${this.shops.length}家门店`
     },
