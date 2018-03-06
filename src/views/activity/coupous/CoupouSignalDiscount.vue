@@ -190,6 +190,7 @@ export default {
         gdDiscountHighestAmt: this.gdDiscountHighestAmt
       }
       if (voucherItem.sendNum > 5) return Toast('发券数量最多为5张')
+      if (voucherItem.discount < 1.1 || voucherItem.discount > 9.9) return Toast('折扣力度需在1.1~9.9之间')
       let voucherObj = JSON.parse(JSON.stringify({
         voucher: {
           rate: (+this.discount * 0.1).toFixed(2),
