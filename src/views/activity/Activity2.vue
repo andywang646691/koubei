@@ -157,10 +157,6 @@ export default {
         {
           name: '全体用户',
           method: () => { this.crowdType = '' }
-        },
-        {
-          name: '新客专享',
-          method: () => { this.crowdType = 'NEW_MEMBER_PROMO' }
         }
       ],
       autoDelayFlag: 'N',
