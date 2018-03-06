@@ -5,7 +5,7 @@ const activity1Validation = [
   },
   {
     key: 'shops',
-    rule: [{name: 'required', errMsg: '.请选择适用门店'}]
+    rule: [{name: 'required', errMsg: '请选择适用门店'}]
   },
   {
     key: 'pickerStartValue',
