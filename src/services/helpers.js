@@ -16,7 +16,7 @@ function getFileFromDom (elem) {
   return {
     file,
     size: file.size,
-    type: matchType && matchType[1]
+    type: matchType && matchType[1].toLowerCase()
   }
 }
 
