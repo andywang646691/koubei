@@ -47,6 +47,10 @@ const coupou3Validation = [
   {
     key: 'gdDetail',
     rule: [{name: 'required', errMsg: '请填写商品详情'}]
+  },
+  {
+    key: 'gdId',
+    rule: [{name: 'required', errMsg: '请上传商品图片'}]
   }
 ]
 
@@ -75,6 +79,10 @@ const coupou4Validation = [
   {
     key: 'gdDetail',
     rule: [{name: 'required', errMsg: '请填写商品详情'}]
+  },
+  {
+    key: 'gdId',
+    rule: [{name: 'required', errMsg: '请上传商品图片'}]
   }
 ]
 
